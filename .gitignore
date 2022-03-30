@@ -36,4 +36,6 @@
 x64
 packages
 v17
+v16
+.vs
 *.user
