@@ -51,8 +51,8 @@ class EmployeesImpl : public Employees
 public:
 	virtual void add(Employee& new_employee) override
 	{
-		list.emplace_back(new_employee);
-		map.insert(std::pair<unsigned, Employee*>(new_employee.employeeNumber, &list.back()));
+		employeeList::const_iterator pos = findAscendingOrderPositionAtList(new_employee);
+		map.insert(std::pair<unsigned, Employee*>(new_employee.employeeNumber, &(*list.emplace(pos, new_employee))));
 	}
 
 	virtual void del(Employee& del_employee) override
@@ -97,6 +97,11 @@ private:
 		if (search == map.end())
 			throw invalid_argument("존재하지 않는 직원");
 		return map.find(target.employeeNumber)->second;
+	}
+
+	employeeList::const_iterator findAscendingOrderPositionAtList(Employee& empl)
+	{
+		return find_if(list.begin(), list.end(), [empl](Employee& listEmpl)->bool { return empl < listEmpl; });
 	}
 };
 
