@@ -58,7 +58,7 @@ public:
 	virtual void del(Employee& del_employee) override
 	{
 		try {
-			list.remove(*find(del_employee));
+			list.remove(*findEmployeePointerFromMap(del_employee));
 			map.erase(del_employee.employeeNumber);
 		}
 		catch (invalid_argument& e) {
@@ -70,7 +70,7 @@ public:
 	virtual void modify(Employee& target, std::function<void(Employee&)> func) override
 	{
 		try {
-			Employee& t = *find(target);
+			Employee& t = *findEmployeePointerFromMap(target);
 			func(t);
 		}
 		catch (invalid_argument& e) {
@@ -91,7 +91,7 @@ private:
 	employeeList list;
 	unordered_map<unsigned, Employee*> map;
 
-	Employee* find(Employee& target)
+	Employee* findEmployeePointerFromMap(Employee& target)
 	{
 		auto search = map.find(target.employeeNumber);
 		if (search == map.end())
