@@ -93,17 +93,16 @@ TEST_F(clientTest, EmployeesTestDelete)
 }
 
 TEST_F(clientTest, EmployeesTestModify) {
-    Employee from = { 15123099, "VXIHXOTH", "JHOP", CL::CL3, 3112, 2609, 19771211, CERTI::ADV };
-    Employee to = { 15123099, "VXIHXOTH", "ABC", CL::CL3, 3112, 2609, 19771211, CERTI::ADV };
+    Employee target = { 15123099, "VXIHXOTH", "JHOP", CL::CL3, 3112, 2609, 19771211, CERTI::ADV };
 
-    db->modify(from, to);
+    db->modify(target, [](Employee& target) {target.lastName = "ABC"; });
 
     const employeeList* t = db->getEmployees();
 
-    Employee modified = *std::find(t->begin(), t->end(), from);
+    Employee modified = *std::find(t->begin(), t->end(), target);
     EXPECT_NE(modified.lastName, "JHOP");
     EXPECT_EQ(modified.lastName, "ABC");
 
     Employee nodata = { 23452212, "VXIHXOTH", "ABC", CL::CL3, 3112, 2609, 19771211, CERTI::ADV };
-    EXPECT_ANY_THROW(db->modify(nodata, to));
+    EXPECT_ANY_THROW(db->modify(nodata, [](Employee& target) {target.birth = 19730205; }));
 }

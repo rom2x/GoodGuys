@@ -27,14 +27,17 @@ public:
 		}
 	}
 
-	virtual void modify(Employee& from, Employee& to) override
+	virtual void modify(Employee& target, std::function<void(Employee&)> func) override
 	{
 		try {
-			Employee& t = *find(from);
-			t = to;
+			Employee& t = *find(target);
+			func(t);
 		}
 		catch (invalid_argument& e) {
 			cout << e.what();
+			throw e;
+		}
+		catch (exception& e) {
 			throw e;
 		}
 	}
