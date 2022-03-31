@@ -1,4 +1,4 @@
-#pragma once
+ο»Ώ#pragma once
 
 #include <iostream>
 #include <vector>
@@ -11,7 +11,7 @@ public:
 	virtual void doCommand(vector<string> cmdLine) = 0;
 };
 
-// TODO: class Έν Ί―°ζ.
+// TODO: class λª… λ³€κ²½.
 class Add :public Command
 {
 
