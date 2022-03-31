@@ -11,17 +11,32 @@ class EmployeesImpl : public Employees
 public:
 	virtual void add(Employee& new_employee) override
 	{
-
+		list.emplace_back(new_employee);
+		map.insert(std::pair<unsigned, Employee*>(new_employee.employeeNumber, &list.back()));
 	}
 
 	virtual void del(Employee& del_employee) override
 	{
-
+		try {
+			list.remove(*find(del_employee));
+			map.erase(del_employee.employeeNumber);
+		}
+		catch (invalid_argument& e) {
+			cout << e.what();
+			throw e;
+		}
 	}
 
 	virtual void modify(Employee& from, Employee& to) override
 	{
-
+		try {
+			Employee& t = *find(from);
+			t = to;
+		}
+		catch (invalid_argument& e) {
+			cout << e.what();
+			throw e;
+		}
 	}
 
 	virtual const employeeList* const getEmployees() const override
