@@ -55,11 +55,17 @@ public:
 		map.insert(std::pair<unsigned, Employee*>(new_employee.employeeNumber, &(*list.emplace(pos, new_employee))));
 	}
 
-	virtual void del(Employee& del_employee) override
+	virtual employeeList del(Employee& del_employee) override
 	{
+		employeeList ret;
+
 		try {
-			list.remove(*findEmployeePointerFromMap(del_employee));
-			map.erase(del_employee.employeeNumber);
+			Employee* t = findEmployeePointerFromMap(del_employee);
+			ret.push_back(*t);
+			list.remove(*t);
+			map.erase(t->employeeNumber);
+
+			return ret;
 		}
 		catch (invalid_argument& e) {
 			cout << e.what();
@@ -67,11 +73,16 @@ public:
 		}
 	}
 
-	virtual void modify(Employee& target, std::function<void(Employee&)> func) override
+	virtual employeeList modify(Employee& target, std::function<void(Employee&)> func) override
 	{
+		employeeList ret;
+
 		try {
 			Employee& t = *findEmployeePointerFromMap(target);
+			ret.push_back(t);
 			func(t);
+
+			return ret;
 		}
 		catch (invalid_argument& e) {
 			cout << e.what();
