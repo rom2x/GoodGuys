@@ -82,6 +82,18 @@ public:
 		}
 	}
 
+	virtual employeeList search(std::function<bool(Employee&)> func) override
+	{
+		employeeList ret;
+
+		for (auto employee : list) {
+			if (func(employee))
+				ret.emplace_back(employee);
+		}
+
+		return ret;
+	}
+
 	virtual const employeeList* const getEmployees() const override
 	{
 		return &list;

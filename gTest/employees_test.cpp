@@ -106,3 +106,76 @@ TEST_F(clientTest, EmployeesTestModify) {
     Employee nodata = { "23452212", "VXIHXOTH", "ABC", "CL3", "3112", "2609", "19771211", "ADV" };
     EXPECT_ANY_THROW(db->modify(nodata, [](Employee& target) {target.birth = 19730205; }));
 }
+
+TEST_F(clientTest, EmployeesTestSearch) {
+    employeeList search_list;
+
+    CERTI target_certi = CERTI::ADV;
+    search_list = db->search([target_certi](Employee& t)->bool { return (t.certi == target_certi); });
+    EXPECT_EQ(search_list.size(), 3);
+
+    target_certi = CERTI::PRO;
+    search_list = db->search([target_certi](Employee& t)->bool { return (t.certi == target_certi); });
+    EXPECT_EQ(search_list.size(), 6);
+
+    target_certi = CERTI::EX;
+    search_list = db->search([target_certi](Employee& t)->bool { return (t.certi == target_certi); });
+    EXPECT_EQ(search_list.size(), 0);
+
+    CL target_cl = CL::CL1;
+    search_list = db->search([target_cl](Employee& t)->bool { return (t.cl == target_cl); });
+    EXPECT_EQ(search_list.size(), 2);
+
+    target_cl = CL::CL2;
+    search_list = db->search([target_cl](Employee& t)->bool { return (t.cl == target_cl); });
+    EXPECT_EQ(search_list.size(), 1);
+
+    target_cl = CL::CL3;
+    search_list = db->search([target_cl](Employee& t)->bool { return (t.cl == target_cl); });
+    EXPECT_EQ(search_list.size(), 2);
+
+    target_cl = CL::CL4;
+    search_list = db->search([target_cl](Employee& t)->bool { return (t.cl == target_cl); });
+    EXPECT_EQ(search_list.size(), 4);
+
+    string target_name = "HBO";
+    search_list = db->search([&target_name](Employee& t)->bool { return (t.lastName == target_name); });
+    EXPECT_EQ(search_list.size(), 1);
+
+    target_name = "JIN";
+    search_list = db->search([&target_name](Employee& t)->bool { return (t.lastName == target_name); });
+    EXPECT_EQ(search_list.size(), 0);
+}
+
+TEST_F(clientTest, EmployeesTestSearchAndDel) {
+    employeeList search_list;
+
+    CERTI target_certi = CERTI::ADV;
+    search_list = db->search([target_certi](Employee& t)->bool { return (t.certi == target_certi); });
+    EXPECT_EQ(search_list.size(), 3);
+
+    for (auto t : search_list)
+        db->del(t);
+
+    search_list = db->search([target_certi](Employee& t)->bool { return (t.certi == target_certi); });
+    EXPECT_EQ(search_list.size(), 0);
+}
+
+TEST_F(clientTest, EmployeesTestSearchAndModify) {
+    employeeList search_list;
+
+    CL target_cl = CL::CL1;
+    search_list = db->search([target_cl](Employee& t)->bool { return (t.cl == target_cl); });
+    EXPECT_EQ(search_list.size(), 2);
+
+    for (auto empl : search_list)
+        db->modify(empl, [](Employee& t) { t.cl = CL::CL2; });
+
+    target_cl = CL::CL1;
+    search_list = db->search([target_cl](Employee& t)->bool { return (t.cl == target_cl); });
+    EXPECT_EQ(search_list.size(), 0);
+
+    target_cl = CL::CL2;
+    search_list = db->search([target_cl](Employee& t)->bool { return (t.cl == target_cl); });
+    EXPECT_EQ(search_list.size(), 3);
+}
