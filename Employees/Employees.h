@@ -71,6 +71,7 @@ public:
 	virtual void add(Employee&) = 0;
 	virtual void del(Employee&) = 0;
 	virtual void modify(Employee&, std::function<void (Employee&)>) = 0;
+	virtual employeeList search(std::function<bool(Employee&)>) = 0;
 	virtual const employeeList* const getEmployees() const = 0;
 };
 
