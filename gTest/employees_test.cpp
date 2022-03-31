@@ -78,14 +78,17 @@ TEST_F(clientTest, EmployeesTestAdd)
 
 TEST_F(clientTest, EmployeesTestDelete)
 {
+    employeeList del_list;
     const employeeList* t = db->getEmployees();
 
     Employee empl1 = { "17111236", "VSID", "TVO", "CL1", "3669", "1077", "20120718", "PRO" };
-    db->del(empl1);
+    del_list = db->del(empl1);
+    EXPECT_EQ(del_list.size(), 1);
     EXPECT_EQ(t->size(), 8);
 
     Employee empl2 = { "19129568", "SRERLALH", "HMEF", "CL2", "3091", "9521", "19640910", "PRO" };
-    db->del(empl2);
+    del_list = db->del(empl2);
+    EXPECT_EQ(del_list.size(), 1);
     EXPECT_EQ(t->size(), 7);
 
     Employee empl3 = { "32523452", "SRERLALH", "HMEF", "CL2", "3091", "9521", "19640910", "PRO" };
@@ -93,9 +96,12 @@ TEST_F(clientTest, EmployeesTestDelete)
 }
 
 TEST_F(clientTest, EmployeesTestModify) {
+    employeeList modify_list;
+
     Employee target = { "15123099", "VXIHXOTH", "JHOP", "CL3", "3112", "2609", "19771211", "ADV" };
 
-    db->modify(target, [](Employee& target) {target.lastName = "ABC"; });
+    modify_list = db->modify(target, [](Employee& target) {target.lastName = "ABC"; });
+    EXPECT_EQ(modify_list.size(), 1);
 
     const employeeList* t = db->getEmployees();
 
