@@ -23,10 +23,9 @@ public:
 
 	}
 
-
-	virtual const employeeList& getEmployees() const override
+	virtual const employeeList* const getEmployees() const override
 	{
-
+		return &list;
 	}
 
 private:
