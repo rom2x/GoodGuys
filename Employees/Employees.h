@@ -27,6 +27,27 @@ struct Employee
 	unsigned phoneNumLast; // xxxx
 	unsigned birth; // YYYYMMDD
 	CERTI certi;
+
+	const bool operator== (const Employee& b) const
+	{
+		if (employeeNumber == b.employeeNumber)
+			return true;
+		else
+			return false;
+	}
+
+	const bool operator< (const Employee& b) const
+	{
+		if (employeeNumber < b.employeeNumber)
+			return true;
+		else
+			return false;
+	}
+
+	const bool operator> (const Employee& b) const
+	{
+		return !operator<(b);
+	}
 };
 
 using employeeList = std::list<Employee>;
