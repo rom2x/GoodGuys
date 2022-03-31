@@ -6,6 +6,46 @@
 
 using namespace std;
 
+CL strToCL(const std::string& cl_str)
+{
+	if (cl_str == "CL1")
+		return CL::CL1;
+	else if (cl_str == "CL2")
+		return CL::CL2;
+	else if (cl_str == "CL3")
+		return CL::CL3;
+	else if (cl_str == "CL4")
+		return CL::CL4;
+
+	throw invalid_argument("정해지지 않은 CL 형식");
+}
+
+CERTI strToCerti(const std::string& certi_str)
+{
+	if (certi_str == "ADV")
+		return CERTI::ADV;
+	else if (certi_str == "PRO")
+		return CERTI::PRO;
+	else if (certi_str == "EX")
+		return CERTI::EX;
+
+	throw invalid_argument("정해지지 않은 CERTI 형식");
+}
+
+unsigned strToEmployeeNumber(const std::string& num)
+{
+	string t = "";
+
+	if ('6' <= num[0] && num[0] <= '9')
+		t = "19";
+	else
+		t = "20";
+
+	t.append(num);
+
+	return stoi(t);
+}
+
 class EmployeesImpl : public Employees
 {
 public:
