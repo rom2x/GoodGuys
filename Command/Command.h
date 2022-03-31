@@ -14,17 +14,29 @@ public:
 // TODO: class 명 변경.
 class Add :public Command
 {
+public:
+	virtual void doCommand(vector<string> cmdLine) override {
 
+	}
 };
 class Del :public Command
 {
+public:
+	virtual void doCommand(vector<string> cmdLine) override {
 
+	}
 };
 class Search :public Command
 {
+public:
+	virtual void doCommand(vector<string> cmdLine) override {
 
+	}
 };
 class Modify :public Command
 {
+public:
+	virtual void doCommand(vector<string> cmdLine) override {
 
+	}
 };
