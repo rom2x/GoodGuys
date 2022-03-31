@@ -31,11 +31,9 @@
 *.out
 *.app
 
-# Visual Studio
-*.suo
-*.db
-x64
-v17
-package
+# VS configures
 .vs
+x64
+packages
+v17
 *.user
