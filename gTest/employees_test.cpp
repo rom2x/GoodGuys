@@ -14,8 +14,7 @@ public:
     }
 
 protected:
-    virtual void SetUp() override
-    {
+    virtual void SetUp() override {
         Employee test_employees[] = {
             { "15123099", "VXIHXOTH", "JHOP", "CL3", "3112", "2609", "19771211", "ADV" },
             { "17112609", "FB", "NTAWR", "CL4", "5645", "6122", "19861203", "PRO" },
@@ -35,8 +34,7 @@ protected:
         cout << "Client 생성" << endl;
     }
 
-    virtual void TearDown() override
-    {
+    virtual void TearDown() override {
 
     }
 
@@ -44,8 +42,7 @@ protected:
     Employees* db;
 };
 
-TEST(EmployeeTest, EmployeeOperator)
-{
+TEST(EmployeeTest, EmployeeOperator) {
     Employee a = { "15123099", "VXIHXOTH", "JHOP", "CL3", "3112", "2609", "19771211", "ADV" };
     Employee b = { "18115040", "TTETHU", "HBO", "CL3", "4581", "2050", "20080718", "ADV" };
 
@@ -59,15 +56,13 @@ TEST(EmployeeTest, EmployeeOperator)
     EXPECT_FALSE(c > d);
 }
 
-TEST_F(clientTest, EmployeesTestSize)
-{
+TEST_F(clientTest, EmployeesTestSize) {
     const employeeList* t = db->getEmployees();
 
     EXPECT_EQ(t->size(), 9);
 }
 
-TEST_F(clientTest, EmployeesTestAdd)
-{
+TEST_F(clientTest, EmployeesTestAdd) {
     const employeeList* t = db->getEmployees();
 
     Employee empl = { "12234575", "EOJOEI", "EWFWEF", "CL2", "5332", "6544", "20152623", "PRO" };
@@ -76,8 +71,7 @@ TEST_F(clientTest, EmployeesTestAdd)
     EXPECT_EQ(t->size(), 10);
 }
 
-TEST_F(clientTest, EmployeesTestDelete)
-{
+TEST_F(clientTest, EmployeesTestDelete) {
     employeeList del_list;
     const employeeList* t = db->getEmployees();
 
