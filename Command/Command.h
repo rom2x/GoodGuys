@@ -6,46 +6,32 @@
 #include "../Employees/Employees.h"
 
 using namespace std;
-#define NUM_OPTION_PARAM	(3)
+
+constexpr auto NUM_OPTION_PARAM = (3);
+
 struct Option
 {
-	// -p
-	// -f / -l / -m / -l / -y / -m / -d
-	// not used
-	string param[NUM_OPTION_PARAM]; 
+	// param[0] : -p
+	// param[1] : -f / -l / -m / -l / -y / -m / -d
+	// param[2] : not used
+	string param[NUM_OPTION_PARAM];
 };
 
 class Command {
 public:
 	Command(Employees* db) :db(db) {}
 
-	// NOTE: parser 에서 애초에 Employee 및 Option 잘라서 주면 좋을듯 하다.
-	void process(vector<string> cmdLine)
-	{
-		static const int CMD_LINE_SIZE = 9;
-		if (CMD_LINE_SIZE != cmdLine.size())
-		{
-			cout << "## ERROR :: process. size:" << cmdLine.size() << endl;
-			throw invalid_argument("");
-		}
+	// NOTE: parser 에서 애초에 Employee 및 Option 잘라서 주면 좋을듯 합니다.
+	virtual void Process(vector<string> cmdLine) = 0;
 
-		Option option = parseToOption(cmdLine);
-		Employee employee = parseToEmployee(cmdLine);
-
-		this->doCommand(option, employee);
-	}
-
-	virtual void doCommand(Option option, Employee& employee) = 0;
-	Employees* getDatabase(void)
+	Employees* get_database(void)
 	{
 		return this->db;
 	}
-private:
-	// TODO: need to impl
-	Option parseToOption(vector<string> cmdLine)
-	{
-		throw invalid_argument("");
 
+	// TODO: need to impl
+	Option ParseToOption(vector<string> cmdLine)
+	{
 		int cmdLineIndex = 0;
 		Option option;
 		for (int i = 0; i < NUM_OPTION_PARAM; i++)
@@ -56,7 +42,7 @@ private:
 	}
 
 	// TODO: need to impl
-	Employee parseToEmployee(vector<string> cmdLine)
+	Employee ParseToEmployee(vector<string> cmdLine)
 	{
 		throw invalid_argument("");
 
@@ -79,21 +65,25 @@ private:
 		return employee;
 	}
 
+private:
 	Employees* db;
+	//Parser* parser;
 };
 
 // TODO: class 명 변경.
 class Add :public Command
 {
 public:
-	Add(Employees* db) : Command(db){}
+	Add(Employees* db) : Command(db) {}
 
-	virtual void doCommand(Option option, Employee& employee) override {
+	virtual void Process(vector<string> cmdLine) override
+	{
 		cout << "do Add" << endl;
 
-		// TODO: process Option
+		throw invalid_argument("TODO: need to impl");
 
-		this->getDatabase()->add(employee);
+		Employee employee;
+		this->get_database()->add(employee);
 	}
 };
 class Del :public Command
@@ -101,10 +91,14 @@ class Del :public Command
 public:
 	Del(Employees* db) : Command(db) {}
 
-	virtual void doCommand(Option option, Employee& employee) override {
-		// TODO: process Option
+	virtual void Process(vector<string> cmdLine) override
+	{
 		cout << "do Del" << endl;
-		this->getDatabase()->del(employee);
+
+		throw invalid_argument("TODO: need to impl");
+
+		Employee employee;
+		this->get_database()->del(employee);
 	}
 };
 class Search :public Command
@@ -112,10 +106,12 @@ class Search :public Command
 public:
 	Search(Employees* db) : Command(db) {}
 
-	virtual void doCommand(Option option, Employee& employee) override {
+	virtual void Process(vector<string> cmdLine) override
+	{
 		cout << "do Search" << endl;
 
-		// TODO: process Option
+		throw invalid_argument("TODO: need to impl");
+
 		// TODO: this->getSearch()->search(employee);
 	}
 };
@@ -124,11 +120,14 @@ class Modify :public Command
 public:
 	Modify(Employees* db) : Command(db) {}
 
-	virtual void doCommand(Option option, Employee& employee) override {
-		// TODO: doCommand 로 커버 안됨.. 설계 확인 필요.
+	virtual void Process(vector<string> cmdLine) override
+	{
 		cout << "do Modify" << endl;
 
-		// TODO: process Option
-		this->getDatabase()->modify(employee, employee);
+		throw invalid_argument("TODO: need to impl");
+		
+		Employee src_employee;
+		Employee dst_employee;
+		this->get_database()->modify(src_employee, dst_employee);
 	}
 };

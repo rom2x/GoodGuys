@@ -70,7 +70,5 @@ protected:
 };
 
 TEST_F(clientTest, EmployeesTest1) {
-    EXPECT_NO_THROW(add->process(this->testCmdLine));
-
-    EXPECT_NO_THROW(add->doCommand({ "","","" }, testEmployee[0]));
+    EXPECT_NO_THROW(add->Process(this->testCmdLine));
 }

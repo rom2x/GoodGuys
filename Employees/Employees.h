@@ -22,10 +22,10 @@ struct Employee
 	unsigned employeeNumber; // 69xxxxxx ~ 21xxxxxx
 	std::string firstName;
 	std::string lastName;
+	CL cl;
 	unsigned phoneNumMid; // xxxx
 	unsigned phoneNumLast; // xxxx
 	unsigned birth; // YYYYMMDD
-	CL cl;
 	CERTI certi;
 };
 
