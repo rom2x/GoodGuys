@@ -17,10 +17,13 @@ public:
     }
 
     bool IsFileValid() {
+        if (!input_file_stream_.is_open()) {
+            return false;
+        }
         return true;
     }
 
-    vector <string> GetFileInputString();
+    vector <string> GetInputStringsFromFile();
 
 private:
     bool IsEndOfFile() {

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include <functional>
 
 enum class CL {
 	CL1,
@@ -10,16 +11,20 @@ enum class CL {
 	CL3,
 	CL4
 };
+CL strToCL(const std::string&);
 
 enum class CERTI {
 	ADV,
 	PRO,
 	EX,
 };
+CERTI strToCerti(const std::string&);
+
+unsigned strToEmployeeNumber(const std::string&);
 
 struct Employee
 {
-	unsigned employeeNumber; // 69xxxxxx ~ 21xxxxxx
+	const unsigned employeeNumber; // 69xxxxxx ~ 21xxxxxx
 	std::string firstName;
 	std::string lastName;
 	CL cl;
@@ -27,6 +32,13 @@ struct Employee
 	unsigned phoneNumLast; // xxxx
 	unsigned birth; // YYYYMMDD
 	CERTI certi;
+
+	Employee(std::string employeeNumber_, std::string firstName_, std::string lastName_, std::string cl_, std::string phoneNumMid_, std::string phoneNumLast_, std::string birth_, std::string certi_)
+		: employeeNumber(strToEmployeeNumber(employeeNumber_)), firstName(std::move(firstName_)), lastName(std::move(lastName_)), phoneNumMid(stoi(phoneNumMid_)), phoneNumLast(stoi(phoneNumLast_)), birth(stoi(birth_))
+	{
+		cl = strToCL(cl_);
+		certi = strToCerti(certi_);
+	}
 
 	const bool operator== (const Employee& b) const
 	{
@@ -57,8 +69,9 @@ class Employees
 {
 public:
 	virtual void add(Employee&) = 0;
-	virtual void del(Employee&) = 0;
-	virtual void modify(Employee& from, Employee& to) = 0;
+	virtual employeeList del(Employee&) = 0;
+	virtual employeeList modify(Employee&, std::function<void (Employee&)>) = 0;
+	virtual employeeList search(std::function<bool(Employee&)>) = 0;
 	virtual const employeeList* const getEmployees() const = 0;
 };
 
