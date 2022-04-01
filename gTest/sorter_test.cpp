@@ -27,7 +27,7 @@ protected:
         employees.push_back(new Employee{ 21171756, "SBILHUT", "LDEXRI", CL::CL4, 2814,1699, 19950704, CERTI::ADV });
 
         
-        sorter->run(employees);
+        sorter->Run(employees);
 
         cout << "Sort ¿Ï·á" << endl;
     }
