@@ -11,7 +11,7 @@
 #include <string>
 #include "../Employees/Employees.h"
 
-using SearchList = std::vector<Employee*>;
+using SearchOutput = std::vector<Employee*>;
 
 enum class SearchType {
 	FIRST_NAME,
@@ -28,12 +28,6 @@ public:
 	SearchType  search_type;
 	std::string search_pattern;
 	bool        is_search_and_p;     // be true when SCH & -p
-};
-
-class SearchOutput {
-public:
-	SearchList search_list;
-	unsigned   num;
 };
 
 class Search {
