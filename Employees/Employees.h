@@ -34,30 +34,26 @@ struct Employee
 	CERTI certi;
 
 	Employee(std::string employeeNumber_, std::string firstName_, std::string lastName_, std::string cl_, std::string phoneNumMid_, std::string phoneNumLast_, std::string birth_, std::string certi_)
-		: employee_number(StrToEmployeeNumber(employeeNumber_)), first_name(std::move(firstName_)), last_name(std::move(lastName_)), phone_num_mid(stoi(phoneNumMid_)), phone_num_last(stoi(phoneNumLast_)), birth(stoi(birth_))
-	{
+		: employee_number(StrToEmployeeNumber(employeeNumber_)), first_name(std::move(firstName_)), last_name(std::move(lastName_)), phone_num_mid(stoi(phoneNumMid_)), phone_num_last(stoi(phoneNumLast_)), birth(stoi(birth_)) {
 		cl = StrToCL(cl_);
 		certi = StrToCerti(certi_);
 	}
 
-	const bool operator== (const Employee& b) const
-	{
+	const bool operator== (const Employee& b) const {
 		if (employee_number == b.employee_number)
 			return true;
 		else
 			return false;
 	}
 
-	const bool operator< (const Employee& b) const
-	{
+	const bool operator< (const Employee& b) const {
 		if (employee_number < b.employee_number)
 			return true;
 		else
 			return false;
 	}
 
-	const bool operator> (const Employee& b) const
-	{
+	const bool operator> (const Employee& b) const {
 		return !operator<(b);
 	}
 };
