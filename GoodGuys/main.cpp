@@ -7,7 +7,14 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	cout << "Good Guys" << endl;
+	const char* inputfilename = argv[1];
+	const char* outputfilename = argv[2];
+
+	FileInputManager* inputmanager = new FileInputManager(inputfilename);
+
+	if (inputmanager->IsFileValid()) {
+		vector<string> inputstrings = inputmanager->GetInputStringsFromFile();
+	}
 
 	return 0;
 }
