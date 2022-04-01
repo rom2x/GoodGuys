@@ -7,71 +7,85 @@
 
 using namespace std;
 
-constexpr auto NUM_OPTION_PARAM = (3);
-
-struct Option
+class Command
 {
-	// param[0] : -p
-	// param[1] : -f / -l / -m / -l / -y / -m / -d
-	// param[2] : not used
-	string param[NUM_OPTION_PARAM];
-};
-
-class Command {
 public:
-	Command(Employees* db) :db_(db) {}
+	Command(vector<string> command) : command_(command) {
+	}
 
-	virtual void Process(vector<string> cmdLine) = 0;
+	virtual void Process(Employees* database) = 0;
+	virtual void CommandValidation() = 0;
 
-	Employees* get_database(void)
+	vector<string>& get_command(void)
 	{
-		return this->db_;
+		return this->command_;
 	}
 
 private:
-	Employees* db_;
-	//Parser* parser;
+	vector<string> command_;
 };
 
-// TODO: class 명 변경.
-class Add :public Command
+class Add : public Command
 {
 public:
-	Add(Employees* db) : Command(db) {}
+	Add(vector<string> command) : Command(command)
+	{
+		this->CommandValidation();
+	}
 
-	virtual void Process(vector<string> cmdLine) override
+	virtual void Process(Employees* database) override
 	{
 		cout << "do Add" << endl;
 
-		throw invalid_argument("TODO: need to impl");
-
-		Employee employee;
-		this->get_database()->add(employee);
+		//Employee employee;
+		//database->add(employee);
 	}
+
+	virtual void CommandValidation() override
+	{
+		if (this->ADD_COMMAND_SIZE != this->get_command().size())
+			throw invalid_argument("## ERROR :: Add()");
+	}
+private:
+	static const int ADD_COMMAND_SIZE = 10;
 };
 
-class Del :public Command
+class Del : public Command
 {
 public:
-	Del(Employees* db) : Command(db) {}
+	Del(vector<string> command) : Command(command)
+	{
+		this->CommandValidation();
+	}
 
-	virtual void Process(vector<string> cmdLine) override
+	virtual void Process(Employees* database) override
 	{
 		cout << "do Del" << endl;
 
 		throw invalid_argument("TODO: need to impl");
 
-		Employee employee;
-		this->get_database()->del(employee);
+		//Employee employee;
+		//database->del(employee);
 	}
+
+	virtual void CommandValidation() override
+	{
+		if (this->DEL_COMMAND_SIZE != this->get_command().size())
+			throw invalid_argument("## ERROR :: Del()");
+	}
+private:
+	static const int DEL_COMMAND_SIZE = 6;
 };
 
-class Search :public Command
+class Search : public Command
 {
 public:
-	Search(Employees* db) : Command(db) {}
+	Search(vector<string> command) : Command(command)
+	{
+		this->CommandValidation();
+	}
 
-	virtual void Process(vector<string> cmdLine) override
+	virtual void Process(Employees* database) override
 	{
 		cout << "do Search" << endl;
 
@@ -79,21 +93,42 @@ public:
 
 		// TODO: this->getSearch()->search(employee);
 	}
+
+	virtual void CommandValidation() override
+	{
+		if (this->SEARCH_COMMAND_SIZE != this->get_command().size())
+			throw invalid_argument("## ERROR :: Search()");
+	}
+
+private:
+	static const int SEARCH_COMMAND_SIZE = 6;
 };
 
-class Modify :public Command
+class Modify : public Command
 {
 public:
-	Modify(Employees* db) : Command(db) {}
+	Modify(vector<string> command) : Command(command)
+	{
+		this->CommandValidation();
+	}
 
-	virtual void Process(vector<string> cmdLine) override
+	virtual void Process(Employees* database) override
 	{
 		cout << "do Modify" << endl;
 
 		throw invalid_argument("TODO: need to impl");
-		
-		Employee src_employee;
-		Employee dst_employee;
-		this->get_database()->modify(src_employee, dst_employee);
+
+		//Employee src_employee;
+		//Employee dst_employee;
+		//database->modify(src_employee, dst_employee);
 	}
+
+	virtual void CommandValidation() override
+	{
+		if (this->MODIFY_COMMAND_SIZE != this->get_command().size())
+			throw invalid_argument("## error :: modify()");
+	}
+
+private:
+	static const int MODIFY_COMMAND_SIZE = 8;
 };
