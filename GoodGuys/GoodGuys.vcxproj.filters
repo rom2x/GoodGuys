@@ -19,11 +19,13 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Sorter.cpp">
+    <ClCompile Include="file_input_manager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sorter.h">
+    <ClInclude Include="file_input_manager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
