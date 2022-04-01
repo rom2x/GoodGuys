@@ -31,7 +31,8 @@ TEST(Search_FirstName, FirstName_A) {
 	SearchTestDb search_test_db;
 	Search search;
 	SearchInput in;
-	SearchOutput out;
+	employeeList out;
+	employeeList::iterator it;
 
 	search.SetEmployeeList( search_test_db.GetEmployeeDb() );
 
@@ -41,9 +42,11 @@ TEST(Search_FirstName, FirstName_A) {
 
 	out = search.DoSearch(in);
 
+	it = out.begin();
 	ASSERT_EQ(out.size(), 2);
-	EXPECT_EQ(out[0]->employeeNumber, 1998123299);
-	EXPECT_EQ(out[1]->employeeNumber, 2020123099);
+	EXPECT_EQ(it->employeeNumber, 1998123299);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2020123099);
 }
 
 
@@ -51,7 +54,8 @@ TEST(Search_LastName, LastName_LEE) {
 	SearchTestDb search_test_db;
 	Search search;
 	SearchInput in;
-	SearchOutput out;
+	employeeList out;
+	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
@@ -61,9 +65,11 @@ TEST(Search_LastName, LastName_LEE) {
 
 	out = search.DoSearch(in);
 
+	it = out.begin();
 	ASSERT_EQ(out.size(), 2);
-	EXPECT_EQ(out[0]->employeeNumber, 2018124099);
-	EXPECT_EQ(out[1]->employeeNumber, 2019122099);
+	EXPECT_EQ(it->employeeNumber, 2018124099);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2019122099);
 }
 
 
@@ -71,7 +77,8 @@ TEST(Search_PhoneNumMid, PhoneNumMid_1237) {
 	SearchTestDb search_test_db;
 	Search search;
 	SearchInput in;
-	SearchOutput out;
+	employeeList out;
+	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
@@ -81,15 +88,17 @@ TEST(Search_PhoneNumMid, PhoneNumMid_1237) {
 
 	out = search.DoSearch(in);
 
+	it = out.begin();
 	ASSERT_EQ(out.size(), 1);
-	EXPECT_EQ(out[0]->employeeNumber, 2021123059);
+	EXPECT_EQ(it->employeeNumber, 2021123059);
 }
 
 TEST(Search_PhoneNumLast, PhoneNumLast_7824) {
 	SearchTestDb search_test_db;
 	Search search;
 	SearchInput in;
-	SearchOutput out;
+	employeeList out;
+	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
@@ -99,15 +108,17 @@ TEST(Search_PhoneNumLast, PhoneNumLast_7824) {
 
 	out = search.DoSearch(in);
 
+	it = out.begin();
 	ASSERT_EQ(out.size(), 1);
-	EXPECT_EQ(out[0]->employeeNumber, 2021123199);
+	EXPECT_EQ(it->employeeNumber, 2021123199);
 }
 
 TEST(Search_BirthdayYear, BirthdayYear_1977) {
 	SearchTestDb search_test_db;
 	Search search;
 	SearchInput in;
-	SearchOutput out;
+	employeeList out;
+	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
@@ -117,9 +128,11 @@ TEST(Search_BirthdayYear, BirthdayYear_1977) {
 
 	out = search.DoSearch(in);
 
+	it = out.begin();
 	ASSERT_EQ(out.size(), 2);
-	EXPECT_EQ(out[0]->employeeNumber, 1998123299);
-	EXPECT_EQ(out[1]->employeeNumber, 2020123099);
+	EXPECT_EQ(it->employeeNumber, 1998123299);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2020123099);
 }
 
 
@@ -127,7 +140,8 @@ TEST(Search_BirthdayMonth, BirthdayMonth_11) {
 	SearchTestDb search_test_db;
 	Search search;
 	SearchInput in;
-	SearchOutput out;
+	employeeList out;
+	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
@@ -137,20 +151,27 @@ TEST(Search_BirthdayMonth, BirthdayMonth_11) {
 
 	out = search.DoSearch(in);
 
+	it = out.begin();
 	ASSERT_EQ(out.size(), 6);
-	EXPECT_EQ(out[0]->employeeNumber, 1998123299);
-	EXPECT_EQ(out[1]->employeeNumber, 2016121099);
-	EXPECT_EQ(out[2]->employeeNumber, 2018124099);
-	EXPECT_EQ(out[3]->employeeNumber, 2021123059);
-	EXPECT_EQ(out[4]->employeeNumber, 2021123199);
-	EXPECT_EQ(out[5]->employeeNumber, 2021125099);
+	EXPECT_EQ(it->employeeNumber, 1998123299);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2016121099);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2018124099);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2021123059);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2021123199);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2021125099);
 }
 
 TEST(Search_BirthdayMonth_Only5, BirthdayMonth_11_Only5) {
 	SearchTestDb search_test_db;
 	Search search;
 	SearchInput in;
-	SearchOutput out;
+	employeeList out;
+	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
@@ -160,12 +181,17 @@ TEST(Search_BirthdayMonth_Only5, BirthdayMonth_11_Only5) {
 
 	out = search.DoSearch(in);
 
+	it = out.begin();
 	ASSERT_EQ(out.size(), 5);
-	EXPECT_EQ(out[0]->employeeNumber, 1998123299);
-	EXPECT_EQ(out[1]->employeeNumber, 2016121099);
-	EXPECT_EQ(out[2]->employeeNumber, 2018124099);
-	EXPECT_EQ(out[3]->employeeNumber, 2021123059);
-	EXPECT_EQ(out[4]->employeeNumber, 2021123199);
+	EXPECT_EQ(it->employeeNumber, 1998123299);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2016121099);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2018124099);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2021123059);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2021123199);
 }
 
 
@@ -173,7 +199,8 @@ TEST(Search_BirthdayDay_Only5, BirthdayDay_12_Only5) {
 	SearchTestDb search_test_db;
 	Search search;
 	SearchInput in;
-	SearchOutput out;
+	employeeList out;
+	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
@@ -183,8 +210,11 @@ TEST(Search_BirthdayDay_Only5, BirthdayDay_12_Only5) {
 
 	out = search.DoSearch(in);
 
+	it = out.begin();
 	ASSERT_EQ(out.size(), 3);
-	EXPECT_EQ(out[0]->employeeNumber, 2016121099);
-	EXPECT_EQ(out[1]->employeeNumber, 2018124099);
-	EXPECT_EQ(out[2]->employeeNumber, 2021123199);
+	EXPECT_EQ(it->employeeNumber, 2016121099);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2018124099);
+	it++;
+	EXPECT_EQ(it->employeeNumber, 2021123199);
 }

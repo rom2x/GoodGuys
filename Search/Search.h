@@ -7,11 +7,8 @@
 
 #include <iostream>
 #include <list>
-#include <Vector>
 #include <string>
 #include "../Employees/Employees.h"
-
-using SearchOutput = std::vector<Employee*>;
 
 enum class SearchType {
 	FIRST_NAME,
@@ -33,17 +30,17 @@ public:
 class Search {
 public:
 	void SetEmployeeList(employeeList* list);
-	SearchOutput DoSearch(SearchInput in);
+	employeeList DoSearch(SearchInput in);
 
 private:
 	employeeList* employee_db;
-	void SearchByFirstName		(SearchInput in, SearchOutput& out);
-	void SearchByLastName		(SearchInput in, SearchOutput& out);
-	void SearchByPhoneNumMid	(SearchInput in, SearchOutput& out);
-	void SearchByPhoneNumLast   (SearchInput in, SearchOutput& out);
-	void SearchByBirthYear		(SearchInput in, SearchOutput& out);
-	void SearchByBirthMonth		(SearchInput in, SearchOutput& out);
-	void SearchByBirthDay		(SearchInput in, SearchOutput& out);
+	void SearchByFirstName		(SearchInput in, employeeList& out);
+	void SearchByLastName		(SearchInput in, employeeList& out);
+	void SearchByPhoneNumMid	(SearchInput in, employeeList& out);
+	void SearchByPhoneNumLast   (SearchInput in, employeeList& out);
+	void SearchByBirthYear		(SearchInput in, employeeList& out);
+	void SearchByBirthMonth		(SearchInput in, employeeList& out);
+	void SearchByBirthDay		(SearchInput in, employeeList& out);
 };
 
 #endif
