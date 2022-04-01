@@ -8,7 +8,7 @@
 #include <iostream>
 #include <list>
 #include <string>
-#include "../Employees/Employees.h"
+#include "../Employees/employees.h"
 
 enum class SearchType {
 	FIRST_NAME,
