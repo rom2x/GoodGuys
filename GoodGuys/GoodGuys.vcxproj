@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClCompile Include="file_input_manager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sorter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_input_manager.h" />
+    <ClInclude Include="Sorter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
