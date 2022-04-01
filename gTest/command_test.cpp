@@ -17,9 +17,12 @@ public:
     }
 
     ~clientTest() {
-#if (TEST_EMPLOYESS == 1)
         delete db;
-#endif
+
+        delete add;
+        delete del;
+        delete search;
+        delete modify;
     }
 
 protected:
@@ -35,7 +38,6 @@ protected:
         testCmdLine.push_back("19771211");
         testCmdLine.push_back("ADV");
 
-        testEmployee.push_back({ 15123099, "VXIHXOTH", "JHOP", CL::CL3, 3112, 2609, 19771211, CERTI::ADV });
         testEmployee.push_back({ 17112609, "FB", "NTAWR", CL::CL4, 5645,6122, 19861203, CERTI::PRO });
         testEmployee.push_back({ 18115040, "TTETHU", "HBO", CL::CL3, 4581, 2050, 20080718, CERTI::ADV });
         testEmployee.push_back({ 88114052, "NQ", "LVARW", CL::CL4, 4528, 3059, 19911021, CERTI::PRO });
@@ -70,5 +72,5 @@ protected:
 };
 
 TEST_F(clientTest, EmployeesTest1) {
-    EXPECT_NO_THROW(add->Process(this->testCmdLine));
+    EXPECT_NO_THROW(add->Process(testCmdLine));
 }
