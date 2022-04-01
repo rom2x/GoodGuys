@@ -13,7 +13,7 @@ void Search::searchByFirstName(SearchInput in, SearchOutput& out)
 	out.num = 0;
 	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
 	{
-		if (iter->firstName == in.searchName)
+		if (iter->firstName == in.searchPattern)
 		{
 			out.searchList.push_back(&*iter);
 			out.num++;
@@ -29,7 +29,7 @@ void Search::searchByLastName(SearchInput in, SearchOutput& out)
 	out.num = 0;
 	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
 	{
-		if (iter->lastName == in.searchName)
+		if (iter->lastName == in.searchPattern)
 		{
 			out.searchList.push_back(&*iter);
 			out.num++;
@@ -45,7 +45,7 @@ void Search::searchByPhoneNumMid(SearchInput in, SearchOutput& out)
 	out.num = 0;
 	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
 	{
-		if (iter->phoneNumMid == in.searchPhoneNum)
+		if (iter->phoneNumMid == stoi(in.searchPattern))
 		{
 			out.searchList.push_back(&*iter);
 			out.num++;
@@ -61,7 +61,7 @@ void Search::searchByPhoneNumLast(SearchInput in, SearchOutput& out)
 	out.num = 0;
 	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
 	{
-		if (iter->phoneNumLast == in.searchPhoneNum)
+		if (iter->phoneNumLast == stoi(in.searchPattern))
 		{
 			out.searchList.push_back(&*iter);
 			out.num++;
@@ -78,7 +78,7 @@ void Search::searchByBirthYear(SearchInput in, SearchOutput& out)
 	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
 	{
 		unsigned year = iter->birth / 10000;
-		if (year == in.searchBirth)
+		if (year == stoi(in.searchPattern))
 		{
 			out.searchList.push_back(&*iter);
 			out.num++;
@@ -95,7 +95,7 @@ void Search::searchByBirthMonth(SearchInput in, SearchOutput& out)
 	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
 	{
 		unsigned month = iter->birth % 10000 / 100;
-		if (month == in.searchBirth)
+		if (month == stoi(in.searchPattern))
 		{
 			out.searchList.push_back(&*iter);
 			out.num++;
@@ -114,7 +114,7 @@ void Search::searchByBirthDay(SearchInput in, SearchOutput& out)
 	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
 	{
 		unsigned day = iter->birth / 100;
-		if (day == in.searchBirth)
+		if (day == stoi(in.searchPattern))
 		{
 			out.searchList.push_back(&*iter);
 			out.num++;

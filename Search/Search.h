@@ -2,16 +2,14 @@
 
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 
+#ifndef  _SEARCH_H_
+#define  _SEARCH_H_
 
 #include <iostream>
 #include <list>
 #include <Vector>
 #include <string>
 #include "../Employees/Employees.h"
-
-
-#ifndef  _SEARCH_H_
-#define  _SEARCH_H_
 
 using namespace std;
 using SearchList = std::vector<Employee*>;
@@ -30,10 +28,7 @@ class SearchInput
 {
 public:
 	SearchType searchType;
-	string     searchName;
-	unsigned   searchPhoneNum;
-	unsigned   searchBirth;
-
+	string     searchPattern;
 	bool       isOnly5;     // be true when SCH & -p
 };
 
