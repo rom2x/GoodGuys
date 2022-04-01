@@ -11,7 +11,6 @@
 #include <string>
 #include "../Employees/Employees.h"
 
-using namespace std;
 using SearchList = std::vector<Employee*>;
 
 enum SearchType {
@@ -24,36 +23,33 @@ enum SearchType {
 	BIRTHDAY_DAY
 };
 
-class SearchInput
-{
+class SearchInput {
 public:
-	SearchType searchType;
-	string     searchPattern;
-	bool       isOnly5;     // be true when SCH & -p
+	SearchType  search_type;
+	std::string search_pattern;
+	bool        is_search_and_p;     // be true when SCH & -p
 };
 
-class SearchOutput
-{
+class SearchOutput {
 public:
-	SearchList searchList;
+	SearchList search_list;
 	unsigned   num;
 };
 
-class Search
-{
+class Search {
 public:
-	void setEmployeeList(employeeList* list);
-	SearchOutput doSearch(SearchInput in);
+	void SetEmployeeList(employeeList* list);
+	SearchOutput DoSearch(SearchInput in);
 
 private:
-	employeeList* employeeDB;
-	void searchByFirstName		(SearchInput in, SearchOutput& out);
-	void searchByLastName		(SearchInput in, SearchOutput& out);
-	void searchByPhoneNumMid	(SearchInput in, SearchOutput& out);
-	void searchByPhoneNumLast   (SearchInput in, SearchOutput& out);
-	void searchByBirthYear		(SearchInput in, SearchOutput& out);
-	void searchByBirthMonth		(SearchInput in, SearchOutput& out);
-	void searchByBirthDay		(SearchInput in, SearchOutput& out);
+	employeeList* employee_db;
+	void SearchByFirstName		(SearchInput in, SearchOutput& out);
+	void SearchByLastName		(SearchInput in, SearchOutput& out);
+	void SearchByPhoneNumMid	(SearchInput in, SearchOutput& out);
+	void SearchByPhoneNumLast   (SearchInput in, SearchOutput& out);
+	void SearchByBirthYear		(SearchInput in, SearchOutput& out);
+	void SearchByBirthMonth		(SearchInput in, SearchOutput& out);
+	void SearchByBirthDay		(SearchInput in, SearchOutput& out);
 };
 
 #endif

@@ -2,145 +2,135 @@
 #include "Search.h"
 
 
-void Search::setEmployeeList(employeeList* list)
-{
-	this->employeeDB = list;
+void Search::SetEmployeeList(employeeList* list) {
+	this->employee_db = list;
 }
 
-void Search::searchByFirstName(SearchInput in, SearchOutput& out)
-{
-	employeeList::iterator iter;
+void Search::SearchByFirstName(SearchInput in, SearchOutput& out) {
+	employeeList::iterator employee;
 	out.num = 0;
-	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
+	for (employee = this->employee_db->begin(); employee != this->employee_db->end(); employee++)
 	{
-		if (iter->firstName == in.searchPattern)
+		if (employee->firstName == in.search_pattern)
 		{
-			out.searchList.push_back(&*iter);
+			out.search_list.push_back(&(*employee));
 			out.num++;
 		}
-		if (in.isOnly5 && out.num == 5)
+		if (in.is_search_and_p && out.num == 5)
 			break;
 	}
 }
 
-void Search::searchByLastName(SearchInput in, SearchOutput& out)
-{
-	employeeList::iterator iter;
+void Search::SearchByLastName(SearchInput in, SearchOutput& out) {
+	employeeList::iterator employee;
 	out.num = 0;
-	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
+	for (employee = this->employee_db->begin(); employee != this->employee_db->end(); employee++)
 	{
-		if (iter->lastName == in.searchPattern)
+		if (employee->lastName == in.search_pattern)
 		{
-			out.searchList.push_back(&*iter);
+			out.search_list.push_back(&(*employee));
 			out.num++;
 		}
-		if (in.isOnly5 && out.num == 5)
+		if (in.is_search_and_p && out.num == 5)
 			break;
 	}
 }
 
-void Search::searchByPhoneNumMid(SearchInput in, SearchOutput& out)
-{
-	employeeList::iterator iter;
+void Search::SearchByPhoneNumMid(SearchInput in, SearchOutput& out) {
+	employeeList::iterator employee;
 	out.num = 0;
-	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
+	for (employee = this->employee_db->begin(); employee != this->employee_db->end(); employee++)
 	{
-		if (iter->phoneNumMid == stoi(in.searchPattern))
+		if (employee->phoneNumMid == stoi(in.search_pattern))
 		{
-			out.searchList.push_back(&*iter);
+			out.search_list.push_back(&(*employee));
 			out.num++;
 		}
-		if (in.isOnly5 && out.num == 5)
+		if (in.is_search_and_p && out.num == 5)
 			break;
 	}
 }
 
-void Search::searchByPhoneNumLast(SearchInput in, SearchOutput& out)
-{
-	employeeList::iterator iter;
+void Search::SearchByPhoneNumLast(SearchInput in, SearchOutput& out) {
+	employeeList::iterator employee;
 	out.num = 0;
-	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
+	for (employee = this->employee_db->begin(); employee != this->employee_db->end(); employee++)
 	{
-		if (iter->phoneNumLast == stoi(in.searchPattern))
+		if (employee->phoneNumLast == stoi(in.search_pattern))
 		{
-			out.searchList.push_back(&*iter);
+			out.search_list.push_back(&(*employee));
 			out.num++;
 		}
-		if (in.isOnly5 && out.num == 5)
+		if (in.is_search_and_p && out.num == 5)
 			break;
 	}
 }
 
-void Search::searchByBirthYear(SearchInput in, SearchOutput& out)
-{
-	employeeList::iterator iter;
+void Search::SearchByBirthYear(SearchInput in, SearchOutput& out) {
+	employeeList::iterator employee;
 	out.num = 0;
-	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
+	for (employee = this->employee_db->begin(); employee != this->employee_db->end(); employee++)
 	{
-		unsigned year = iter->birth / 10000;
-		if (year == stoi(in.searchPattern))
+		unsigned year = employee->birth / 10000;
+		if (year == stoi(in.search_pattern))
 		{
-			out.searchList.push_back(&*iter);
+			out.search_list.push_back(&(*employee));
 			out.num++;
 		}
-		if (in.isOnly5 && out.num == 5)
+		if (in.is_search_and_p && out.num == 5)
 			break;
 	}
 }
 
-void Search::searchByBirthMonth(SearchInput in, SearchOutput& out)
-{
-	employeeList::iterator iter;
+void Search::SearchByBirthMonth(SearchInput in, SearchOutput& out) {
+	employeeList::iterator employee;
 	out.num = 0;
-	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
+	for (employee = this->employee_db->begin(); employee != this->employee_db->end(); employee++)
 	{
-		unsigned month = iter->birth % 10000 / 100;
-		if (month == stoi(in.searchPattern))
+		unsigned month = employee->birth % 10000 / 100;
+		if (month == stoi(in.search_pattern))
 		{
-			out.searchList.push_back(&*iter);
+			out.search_list.push_back(&(*employee));
 			out.num++;
 		}
 		if(month > 12)
-			throw out_of_range("month Range Error!");
-		if (in.isOnly5 && out.num == 5)
+			throw std::out_of_range("month Range Error!");
+		if (in.is_search_and_p && out.num == 5)
 			break;
 	}
 }
 
-void Search::searchByBirthDay(SearchInput in, SearchOutput& out)
-{
-	employeeList::iterator iter;
+void Search::SearchByBirthDay(SearchInput in, SearchOutput& out) {
+	employeeList::iterator employee;
 	out.num = 0;
-	for (iter = this->employeeDB->begin(); iter != this->employeeDB->end(); iter++)
+	for (employee = this->employee_db->begin(); employee != this->employee_db->end(); employee++)
 	{
-		unsigned day = iter->birth / 100;
-		if (day == stoi(in.searchPattern))
+		unsigned day = employee->birth / 100;
+		if (day == stoi(in.search_pattern))
 		{
-			out.searchList.push_back(&*iter);
+			out.search_list.push_back(&(*employee));
 			out.num++;
 		}
 		if (day > 31)
-			throw out_of_range("Day Range Error!");
-		if (in.isOnly5 && out.num == 5)
+			throw std::out_of_range("Day Range Error!");
+		if (in.is_search_and_p && out.num == 5)
 			break;
 	}
 }
 
 
-SearchOutput Search::doSearch(SearchInput in)
-{
+SearchOutput Search::DoSearch(SearchInput in) {
 	SearchOutput searchOutput;
 
-	switch (in.searchType)
-	{
-	case FIRST_NAME:		Search::searchByFirstName(in, searchOutput);	break;
-	case LAST_NAME:         Search::searchByLastName(in, searchOutput);		break;
-	case PHONE_NUM_MID:     Search::searchByPhoneNumMid(in, searchOutput);	break;
-	case PHONE_NUM_LAST:    Search::searchByPhoneNumLast(in, searchOutput);	break;
-	case BIRTHDAY_YEAR:     Search::searchByBirthYear(in, searchOutput);	break;
-	case BIRTHDAY_MONTH:    Search::searchByBirthMonth(in, searchOutput);	break;
-	case BIRTHDAY_DAY:      Search::searchByBirthDay(in, searchOutput);		break;
-	default: throw out_of_range("SearchType Range Error!");
+	switch (in.search_type)	{
+	case FIRST_NAME:		Search::SearchByFirstName(in, searchOutput);	break;
+	case LAST_NAME:         Search::SearchByLastName(in, searchOutput);		break;
+	case PHONE_NUM_MID:     Search::SearchByPhoneNumMid(in, searchOutput);	break;
+	case PHONE_NUM_LAST:    Search::SearchByPhoneNumLast(in, searchOutput);	break;
+	case BIRTHDAY_YEAR:     Search::SearchByBirthYear(in, searchOutput);	break;
+	case BIRTHDAY_MONTH:    Search::SearchByBirthMonth(in, searchOutput);	break;
+	case BIRTHDAY_DAY:      Search::SearchByBirthDay(in, searchOutput);		break;
+	default: throw std::out_of_range("SearchType Range Error!");
 	}
 
 	return searchOutput;
