@@ -3,7 +3,6 @@
 vector <string> FileInputManager::GetInputStringsFromFile() {
 	vector<string> result;
 	string eachline;
-	string::size_type fpos, lpos;
 
 	while (IsEndOfFile() == false) {
 		getline(input_file_stream_, eachline);
