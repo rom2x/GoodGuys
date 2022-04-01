@@ -19,17 +19,17 @@ struct Option
 
 class Command {
 public:
-	Command(Employees* db) :db(db) {}
+	Command(Employees* db) :db_(db) {}
 
 	virtual void Process(vector<string> cmdLine) = 0;
 
 	Employees* get_database(void)
 	{
-		return this->db;
+		return this->db_;
 	}
 
 private:
-	Employees* db;
+	Employees* db_;
 	//Parser* parser;
 };
 
