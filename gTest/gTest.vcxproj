@@ -46,6 +46,7 @@
     </ClCompile>
     <ClCompile Include="command_test.cpp" />
     <ClCompile Include="sorter_test.cpp" />
+    <ClCompile Include="Search_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -53,6 +54,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Employees\Employees.vcxproj">
       <Project>{744eccc4-7c38-4ecf-ba88-30c93d6a04ca}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Search\Search.vcxproj">
+      <Project>{efa7dd48-5329-47cb-828d-82821de399e1}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemDefinitionGroup />
