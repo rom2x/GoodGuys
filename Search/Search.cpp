@@ -9,7 +9,7 @@ void Search::SetEmployeeList(employeeList* list) {
 void Search::SearchByFirstName(SearchInput in, employeeList& out) {
 	for (auto employee : *(this->employee_db) )
 	{
-		if (employee.firstName == in.search_pattern) {
+		if (employee.first_name == in.search_pattern) {
 			out.emplace_back(employee);
 		}
 		if (in.is_search_and_p && out.size() == 5)
@@ -19,7 +19,7 @@ void Search::SearchByFirstName(SearchInput in, employeeList& out) {
 
 void Search::SearchByLastName(SearchInput in, employeeList& out) {
 	for (auto employee : *(this->employee_db)) {
-		if (employee.lastName == in.search_pattern) {
+		if (employee.last_name == in.search_pattern) {
 			out.emplace_back(employee);
 		}
 		if (in.is_search_and_p && out.size() == 5) 
@@ -29,7 +29,7 @@ void Search::SearchByLastName(SearchInput in, employeeList& out) {
 
 void Search::SearchByPhoneNumMid(SearchInput in, employeeList& out) {
 	for (auto employee : *(this->employee_db)) {
-		if (employee.phoneNumMid == stoi(in.search_pattern)) {
+		if (employee.phone_num_mid == stoi(in.search_pattern)) {
 			out.emplace_back(employee);
 		}
 		if (in.is_search_and_p && out.size() == 5)
@@ -39,7 +39,7 @@ void Search::SearchByPhoneNumMid(SearchInput in, employeeList& out) {
 
 void Search::SearchByPhoneNumLast(SearchInput in, employeeList& out) {
 	for (auto employee : *(this->employee_db)) {
-		if (employee.phoneNumLast == stoi(in.search_pattern)) {
+		if (employee.phone_num_last == stoi(in.search_pattern)) {
 			out.emplace_back(employee);
 		}
 		if (in.is_search_and_p && out.size() == 5)

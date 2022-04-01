@@ -44,9 +44,9 @@ protected:
 };
 
 TEST_F(SortTest, SORT_TEST1) {
-    EXPECT_EQ(81235564, employees[0]->employeeNumber);
-    EXPECT_EQ(88114052, employees[1]->employeeNumber);
-    EXPECT_EQ(15123099, employees[2]->employeeNumber);
-    EXPECT_EQ(21171756, employees[8]->employeeNumber);
+    EXPECT_EQ(81235564, employees[0]->employee_number);
+    EXPECT_EQ(88114052, employees[1]->employee_number);
+    EXPECT_EQ(15123099, employees[2]->employee_number);
+    EXPECT_EQ(21171756, employees[8]->employee_number);
     EXPECT_TRUE(true);
 }

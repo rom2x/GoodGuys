@@ -48,7 +48,7 @@ protected:
         testEmployee.push_back({ 2117175, "SBILHUT", "LDEXRI", CL::CL4, 2814,1699, 19950704, CERTI::ADV });
 
         for (auto t : testEmployee) {
-            db->add(t);
+            db->Add(t);
         }
 
         cout << "Client »ý¼º" << endl;
