@@ -44,6 +44,21 @@ protected:
     Employees* db;
 };
 
+TEST(EmployeeTest, EmployeeOperator)
+{
+    Employee a = { 15123099, "VXIHXOTH", "JHOP", CL::CL3, 3112, 2609, 19771211, CERTI::ADV };
+    Employee b = { 18115040, "TTETHU", "HBO", CL::CL3, 4581, 2050, 20080718, CERTI::ADV };
+
+    EXPECT_TRUE(a < b);
+    EXPECT_FALSE(a > b);
+
+    Employee c = { 15123099, "VXIHXOTH", "JHOP", CL::CL3, 3112, 2609, 19771211, CERTI::ADV };
+    Employee d = { 2117175, "SBILHUT", "LDEXRI", CL::CL4, 2814,1699, 19950704, CERTI::ADV }; // 2000년 이 후 사번에 대한 케이스 테스트
+
+    EXPECT_TRUE(c < d);
+    EXPECT_FALSE(c > d);
+}
+
 TEST_F(clientTest, EmployeesTestSize)
 {
     const employeeList* t = db->getEmployees();
