@@ -123,13 +123,13 @@ SearchOutput Search::DoSearch(SearchInput in) {
 	SearchOutput searchOutput;
 
 	switch (in.search_type)	{
-	case FIRST_NAME:		Search::SearchByFirstName(in, searchOutput);	break;
-	case LAST_NAME:         Search::SearchByLastName(in, searchOutput);		break;
-	case PHONE_NUM_MID:     Search::SearchByPhoneNumMid(in, searchOutput);	break;
-	case PHONE_NUM_LAST:    Search::SearchByPhoneNumLast(in, searchOutput);	break;
-	case BIRTHDAY_YEAR:     Search::SearchByBirthYear(in, searchOutput);	break;
-	case BIRTHDAY_MONTH:    Search::SearchByBirthMonth(in, searchOutput);	break;
-	case BIRTHDAY_DAY:      Search::SearchByBirthDay(in, searchOutput);		break;
+	case SearchType::FIRST_NAME:		Search::SearchByFirstName(in, searchOutput);	break;
+	case SearchType::LAST_NAME:         Search::SearchByLastName(in, searchOutput);		break;
+	case SearchType::PHONE_NUM_MID:     Search::SearchByPhoneNumMid(in, searchOutput);	break;
+	case SearchType::PHONE_NUM_LAST:    Search::SearchByPhoneNumLast(in, searchOutput);	break;
+	case SearchType::BIRTHDAY_YEAR:     Search::SearchByBirthYear(in, searchOutput);	break;
+	case SearchType::BIRTHDAY_MONTH:    Search::SearchByBirthMonth(in, searchOutput);	break;
+	case SearchType::BIRTHDAY_DAY:      Search::SearchByBirthDay(in, searchOutput);		break;
 	default: throw std::out_of_range("SearchType Range Error!");
 	}
 

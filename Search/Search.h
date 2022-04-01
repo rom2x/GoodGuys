@@ -13,7 +13,7 @@
 
 using SearchList = std::vector<Employee*>;
 
-enum SearchType {
+enum class SearchType {
 	FIRST_NAME,
 	LAST_NAME,
 	PHONE_NUM_MID,
