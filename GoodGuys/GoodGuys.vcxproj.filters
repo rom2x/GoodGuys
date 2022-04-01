@@ -18,6 +18,14 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Sorter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sorter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClCompile Include="file_input_manager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
