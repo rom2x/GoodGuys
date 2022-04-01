@@ -52,6 +52,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Command\Command.vcxproj">
+      <Project>{537017c5-55b7-4197-bcc9-f70d8fa9edf7}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Employees\Employees.vcxproj">
       <Project>{744eccc4-7c38-4ecf-ba88-30c93d6a04ca}</Project>
     </ProjectReference>
