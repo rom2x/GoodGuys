@@ -43,6 +43,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="sorter_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -50,6 +51,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Employees\Employees.vcxproj">
       <Project>{744eccc4-7c38-4ecf-ba88-30c93d6a04ca}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GoodGuys\GoodGuys.vcxproj">
+      <Project>{77e78b60-1f1f-45a8-9f39-d6a2c6b90a6c}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemDefinitionGroup />
