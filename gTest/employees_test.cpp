@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 #include <algorithm>
-#include "../Employees/Employees.cpp"
+#include "../Employees/employees.cpp"
 
 class clientTest : public ::testing::Test
 {
