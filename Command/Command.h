@@ -132,3 +132,19 @@ public:
 private:
 	static const int MODIFY_COMMAND_SIZE = 8;
 };
+
+static Command* GetAddCommand(vector<string> input_cmd_param) {
+	return new Add(input_cmd_param);
+}
+
+static Command* GetDelCommand(vector<string> input_cmd_param) {
+	return new Del(input_cmd_param);
+}
+
+static Command* GetModCommand(vector<string> input_cmd_param) {
+	return new Modify(input_cmd_param);
+}
+
+static Command* GetSchCommand(vector<string> input_cmd_param) {
+	return new Search(input_cmd_param);
+}
