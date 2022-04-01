@@ -11,38 +11,38 @@ enum class CL {
 	CL3,
 	CL4
 };
-CL strToCL(const std::string&);
+CL StrToCL(const std::string&);
 
 enum class CERTI {
 	ADV,
 	PRO,
 	EX,
 };
-CERTI strToCerti(const std::string&);
+CERTI StrToCerti(const std::string&);
 
-unsigned strToEmployeeNumber(const std::string&);
+unsigned StrToEmployeeNumber(const std::string&);
 
 struct Employee
 {
-	const unsigned employeeNumber; // 69xxxxxx ~ 21xxxxxx
-	std::string firstName;
-	std::string lastName;
+	const unsigned employee_number; // 69xxxxxx ~ 21xxxxxx
+	std::string first_name;
+	std::string last_name;
 	CL cl;
-	unsigned phoneNumMid; // xxxx
-	unsigned phoneNumLast; // xxxx
+	unsigned phone_num_mid; // xxxx
+	unsigned phone_num_last; // xxxx
 	unsigned birth; // YYYYMMDD
 	CERTI certi;
 
 	Employee(std::string employeeNumber_, std::string firstName_, std::string lastName_, std::string cl_, std::string phoneNumMid_, std::string phoneNumLast_, std::string birth_, std::string certi_)
-		: employeeNumber(strToEmployeeNumber(employeeNumber_)), firstName(std::move(firstName_)), lastName(std::move(lastName_)), phoneNumMid(stoi(phoneNumMid_)), phoneNumLast(stoi(phoneNumLast_)), birth(stoi(birth_))
+		: employee_number(StrToEmployeeNumber(employeeNumber_)), first_name(std::move(firstName_)), last_name(std::move(lastName_)), phone_num_mid(stoi(phoneNumMid_)), phone_num_last(stoi(phoneNumLast_)), birth(stoi(birth_))
 	{
-		cl = strToCL(cl_);
-		certi = strToCerti(certi_);
+		cl = StrToCL(cl_);
+		certi = StrToCerti(certi_);
 	}
 
 	const bool operator== (const Employee& b) const
 	{
-		if (employeeNumber == b.employeeNumber)
+		if (employee_number == b.employee_number)
 			return true;
 		else
 			return false;
@@ -50,7 +50,7 @@ struct Employee
 
 	const bool operator< (const Employee& b) const
 	{
-		if (employeeNumber < b.employeeNumber)
+		if (employee_number < b.employee_number)
 			return true;
 		else
 			return false;
@@ -68,11 +68,11 @@ using employeeList = std::list<Employee>;
 class Employees
 {
 public:
-	virtual void add(Employee&) = 0;
-	virtual employeeList del(Employee&) = 0;
-	virtual employeeList modify(Employee&, std::function<void (Employee&)>) = 0;
-	virtual employeeList search(std::function<bool(Employee&)>) = 0;
+	virtual void Add(Employee&) = 0;
+	virtual employeeList Del(Employee&) = 0;
+	virtual employeeList Modify(Employee&, std::function<void (Employee&)>) = 0;
+	virtual employeeList Search(std::function<bool(Employee&)>) = 0;
 	virtual const employeeList* const getEmployees() const = 0;
 };
 
-Employees* createEmployees();
+Employees* CreateEmployees();

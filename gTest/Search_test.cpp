@@ -44,9 +44,9 @@ TEST(Search_FirstName, FirstName_A) {
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 2);
-	EXPECT_EQ(it->employeeNumber, 1998123299);
+	EXPECT_EQ(it->employee_number, 1998123299);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2020123099);
+	EXPECT_EQ(it->employee_number, 2020123099);
 }
 
 
@@ -67,9 +67,9 @@ TEST(Search_LastName, LastName_LEE) {
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 2);
-	EXPECT_EQ(it->employeeNumber, 2018124099);
+	EXPECT_EQ(it->employee_number, 2018124099);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2019122099);
+	EXPECT_EQ(it->employee_number, 2019122099);
 }
 
 
@@ -90,7 +90,7 @@ TEST(Search_PhoneNumMid, PhoneNumMid_1237) {
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 1);
-	EXPECT_EQ(it->employeeNumber, 2021123059);
+	EXPECT_EQ(it->employee_number, 2021123059);
 }
 
 TEST(Search_PhoneNumLast, PhoneNumLast_7824) {
@@ -110,7 +110,7 @@ TEST(Search_PhoneNumLast, PhoneNumLast_7824) {
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 1);
-	EXPECT_EQ(it->employeeNumber, 2021123199);
+	EXPECT_EQ(it->employee_number, 2021123199);
 }
 
 TEST(Search_BirthdayYear, BirthdayYear_1977) {
@@ -130,9 +130,9 @@ TEST(Search_BirthdayYear, BirthdayYear_1977) {
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 2);
-	EXPECT_EQ(it->employeeNumber, 1998123299);
+	EXPECT_EQ(it->employee_number, 1998123299);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2020123099);
+	EXPECT_EQ(it->employee_number, 2020123099);
 }
 
 
@@ -153,17 +153,17 @@ TEST(Search_BirthdayMonth, BirthdayMonth_11) {
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 6);
-	EXPECT_EQ(it->employeeNumber, 1998123299);
+	EXPECT_EQ(it->employee_number, 1998123299);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2016121099);
+	EXPECT_EQ(it->employee_number, 2016121099);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2018124099);
+	EXPECT_EQ(it->employee_number, 2018124099);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2021123059);
+	EXPECT_EQ(it->employee_number, 2021123059);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2021123199);
+	EXPECT_EQ(it->employee_number, 2021123199);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2021125099);
+	EXPECT_EQ(it->employee_number, 2021125099);
 }
 
 TEST(Search_BirthdayMonth_Only5, BirthdayMonth_11_Only5) {
@@ -183,15 +183,15 @@ TEST(Search_BirthdayMonth_Only5, BirthdayMonth_11_Only5) {
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 5);
-	EXPECT_EQ(it->employeeNumber, 1998123299);
+	EXPECT_EQ(it->employee_number, 1998123299);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2016121099);
+	EXPECT_EQ(it->employee_number, 2016121099);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2018124099);
+	EXPECT_EQ(it->employee_number, 2018124099);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2021123059);
+	EXPECT_EQ(it->employee_number, 2021123059);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2021123199);
+	EXPECT_EQ(it->employee_number, 2021123199);
 }
 
 
@@ -212,9 +212,9 @@ TEST(Search_BirthdayDay_Only5, BirthdayDay_12_Only5) {
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 3);
-	EXPECT_EQ(it->employeeNumber, 2016121099);
+	EXPECT_EQ(it->employee_number, 2016121099);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2018124099);
+	EXPECT_EQ(it->employee_number, 2018124099);
 	it++;
-	EXPECT_EQ(it->employeeNumber, 2021123199);
+	EXPECT_EQ(it->employee_number, 2021123199);
 }

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-CL strToCL(const std::string& cl_str)
+CL StrToCL(const std::string& cl_str)
 {
 	if (cl_str == "CL1")
 		return CL::CL1;
@@ -20,7 +20,7 @@ CL strToCL(const std::string& cl_str)
 	throw invalid_argument("정해지지 않은 CL 형식");
 }
 
-CERTI strToCerti(const std::string& certi_str)
+CERTI StrToCerti(const std::string& certi_str)
 {
 	if (certi_str == "ADV")
 		return CERTI::ADV;
@@ -32,7 +32,7 @@ CERTI strToCerti(const std::string& certi_str)
 	throw invalid_argument("정해지지 않은 CERTI 형식");
 }
 
-unsigned strToEmployeeNumber(const std::string& num)
+unsigned StrToEmployeeNumber(const std::string& num)
 {
 	string t = "";
 
@@ -49,21 +49,21 @@ unsigned strToEmployeeNumber(const std::string& num)
 class EmployeesImpl : public Employees
 {
 public:
-	virtual void add(Employee& new_employee) override
+	virtual void Add(Employee& new_employee) override
 	{
-		employeeList::const_iterator pos = findAscendingOrderPositionAtList(new_employee);
-		map.insert(std::pair<unsigned, Employee*>(new_employee.employeeNumber, &(*list.emplace(pos, new_employee))));
+		employeeList::const_iterator pos = FindAscendingOrderPositionAtList(new_employee);
+		map.insert(std::pair<unsigned, Employee*>(new_employee.employee_number, &(*list.emplace(pos, new_employee))));
 	}
 
-	virtual employeeList del(Employee& del_employee) override
+	virtual employeeList Del(Employee& del_employee) override
 	{
 		employeeList ret;
 
 		try {
-			Employee* t = findEmployeePointerFromMap(del_employee);
+			Employee* t = FindEmployeePointerFromMap(del_employee);
 			ret.push_back(*t);
 			list.remove(*t);
-			map.erase(t->employeeNumber);
+			map.erase(t->employee_number);
 
 			return ret;
 		}
@@ -73,12 +73,12 @@ public:
 		}
 	}
 
-	virtual employeeList modify(Employee& target, std::function<void(Employee&)> func) override
+	virtual employeeList Modify(Employee& target, std::function<void(Employee&)> func) override
 	{
 		employeeList ret;
 
 		try {
-			Employee& t = *findEmployeePointerFromMap(target);
+			Employee& t = *FindEmployeePointerFromMap(target);
 			ret.push_back(t);
 			func(t);
 
@@ -93,7 +93,7 @@ public:
 		}
 	}
 
-	virtual employeeList search(std::function<bool(Employee&)> func) override
+	virtual employeeList Search(std::function<bool(Employee&)> func) override
 	{
 		employeeList ret;
 
@@ -114,21 +114,21 @@ private:
 	employeeList list;
 	unordered_map<unsigned, Employee*> map;
 
-	Employee* findEmployeePointerFromMap(Employee& target)
+	Employee* FindEmployeePointerFromMap(Employee& target)
 	{
-		auto search = map.find(target.employeeNumber);
+		auto search = map.find(target.employee_number);
 		if (search == map.end())
 			throw invalid_argument("존재하지 않는 직원");
-		return map.find(target.employeeNumber)->second;
+		return map.find(target.employee_number)->second;
 	}
 
-	employeeList::const_iterator findAscendingOrderPositionAtList(Employee& empl)
+	employeeList::const_iterator FindAscendingOrderPositionAtList(Employee& empl)
 	{
 		return find_if(list.begin(), list.end(), [empl](Employee& listEmpl)->bool { return empl < listEmpl; });
 	}
 };
 
-Employees* createEmployees()
+Employees* CreateEmployees()
 {
 	return new EmployeesImpl();
 }
