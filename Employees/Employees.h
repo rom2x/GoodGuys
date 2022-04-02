@@ -68,6 +68,7 @@ public:
 	virtual employeeList Del(Employee&) = 0;
 	virtual employeeList Modify(Employee&, std::function<void (Employee&)>) = 0;
 	virtual employeeList Search(std::function<bool(Employee&)>) = 0;
+	virtual const unsigned getEmployeeNumbers() const = 0;
 };
 
 Employees* CreateEmployees();
