@@ -57,54 +57,31 @@ TEST(EmployeeTest, EmployeeOperator) {
 }
 
 TEST_F(clientTest, EmployeesTestSize) {
-    const employeeList* t = db->getEmployees();
-
-    EXPECT_EQ(t->size(), 9);
+    EXPECT_EQ(db->getEmployeeNumbers(), 9);
 }
 
 TEST_F(clientTest, EmployeesTestAdd) {
-    const employeeList* t = db->getEmployees();
-
     Employee empl = { "12234575", "EOJOEI", "EWFWEF", "CL2", "5332", "6544", "20152623", "PRO" };
     db->Add(empl);
 
-    EXPECT_EQ(t->size(), 10);
+    EXPECT_EQ(db->getEmployeeNumbers(), 10);
 }
 
 TEST_F(clientTest, EmployeesTestDelete) {
     employeeList del_list;
-    const employeeList* t = db->getEmployees();
 
     Employee empl1 = { "17111236", "VSID", "TVO", "CL1", "3669", "1077", "20120718", "PRO" };
     del_list = db->Del(empl1);
     EXPECT_EQ(del_list.size(), 1);
-    EXPECT_EQ(t->size(), 8);
+    EXPECT_EQ(db->getEmployeeNumbers(), 8);
 
     Employee empl2 = { "19129568", "SRERLALH", "HMEF", "CL2", "3091", "9521", "19640910", "PRO" };
     del_list = db->Del(empl2);
     EXPECT_EQ(del_list.size(), 1);
-    EXPECT_EQ(t->size(), 7);
+    EXPECT_EQ(db->getEmployeeNumbers(), 7);
 
     Employee empl3 = { "32523452", "SRERLALH", "HMEF", "CL2", "3091", "9521", "19640910", "PRO" };
     EXPECT_ANY_THROW(db->Del(empl3));
-}
-
-TEST_F(clientTest, EmployeesTestModify) {
-    employeeList modify_list;
-
-    Employee target = { "15123099", "VXIHXOTH", "JHOP", "CL3", "3112", "2609", "19771211", "ADV" };
-
-    modify_list = db->Modify(target, [](Employee& target) {target.last_name = "ABC"; });
-    EXPECT_EQ(modify_list.size(), 1);
-
-    const employeeList* t = db->getEmployees();
-
-    Employee modified = *std::find(t->begin(), t->end(), target);
-    EXPECT_NE(modified.last_name, "JHOP");
-    EXPECT_EQ(modified.last_name, "ABC");
-
-    Employee nodata = { "23452212", "VXIHXOTH", "ABC", "CL3", "3112", "2609", "19771211", "ADV" };
-    EXPECT_ANY_THROW(db->Modify(nodata, [](Employee& target) {target.birth = 19730205; }));
 }
 
 TEST_F(clientTest, EmployeesTestSearch) {
@@ -145,6 +122,28 @@ TEST_F(clientTest, EmployeesTestSearch) {
     target_name = "JIN";
     search_list = db->Search([&target_name](Employee& t)->bool { return (t.last_name == target_name); });
     EXPECT_EQ(search_list.size(), 0);
+}
+
+TEST_F(clientTest, EmployeesTestModify) {
+    employeeList modify_list;
+    employeeList modified_list;
+    string target_name;
+
+    Employee target = { "15123099", "VXIHXOTH", "JHOP", "CL3", "3112", "2609", "19771211", "ADV" };
+
+    modify_list = db->Modify(target, [](Employee& target) {target.last_name = "ABC"; });
+    EXPECT_EQ(modify_list.size(), 1);
+
+    target_name = "JHOP";
+    modified_list = db->Search([&target_name](Employee& t)->bool { return (t.last_name == target_name); });
+    EXPECT_EQ(modified_list.size(), 0);
+
+    target_name = "ABC";
+    modified_list = db->Search([&target_name](Employee& t)->bool { return (t.last_name == target_name); });
+    EXPECT_EQ(modified_list.size(), 1);
+
+    Employee nodata = { "23452212", "VXIHXOTH", "ABC", "CL3", "3112", "2609", "19771211", "ADV" };
+    EXPECT_ANY_THROW(db->Modify(nodata, [](Employee& target) {target.birth = 19730205; }));
 }
 
 TEST_F(clientTest, EmployeesTestSearchAndDel) {
