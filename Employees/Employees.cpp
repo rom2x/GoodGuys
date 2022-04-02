@@ -56,9 +56,9 @@ public:
 
 		try {
 			Employee* t = FindEmployeePointerFromMap(del_employee);
+			map.erase(t->employee_number);
 			ret.push_back(*t);
 			list.remove(*t);
-			map.erase(t->employee_number);
 
 			return ret;
 		}
