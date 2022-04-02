@@ -98,6 +98,10 @@ public:
 		return ret;
 	}
 
+	virtual const unsigned getEmployeeNumbers() const {
+		return list.size();
+	}
+
 private:
 	employeeList list;
 	unordered_map<unsigned, Employee*> map;
