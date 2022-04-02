@@ -98,10 +98,6 @@ public:
 		return ret;
 	}
 
-	virtual const employeeList* const getEmployees() const override	{
-		return &list;
-	}
-
 private:
 	employeeList list;
 	unordered_map<unsigned, Employee*> map;
