@@ -81,7 +81,7 @@ static vector<string> ParseInputStringOfEmployee(const string& input) {
 }
 
 Employee::Employee(std::string input)
-	: employee_number(StrToEmployeeNumber(input.substr(0, input.find(',') - 1))) {
+	: employee_number(StrToEmployeeNumber(input.substr(0, input.find(',')))) {
 	vector<string> str_token = std::move(ParseInputStringOfEmployee(input));
 
 	first_name = std::move(getFirstName(str_token[1]));
@@ -119,7 +119,7 @@ const bool Employee::operator> (const Employee& b) const {
 
 const string Employee::to_string() const {
 	return
-		std::to_string(employee_number % 100000000) + ","
+		std::to_string(employee_number).substr(2, 8) + ","
 		+ first_name + " " + last_name + ","
 		+ cl_string[(static_cast<unsigned>(cl))] + ","
 		+ "010-" + std::to_string(phone_num_mid) + "-" + std::to_string(phone_num_last) + ","
