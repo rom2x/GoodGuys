@@ -43,12 +43,57 @@ static unsigned StrToEmployeeNumber(const std::string& num) {
 	return stoi(t);
 }
 
-Employee::Employee(std::string employeeNumber_, std::string firstName_, std::string lastName_, std::string cl_, std::string phoneNumMid_, std::string phoneNumLast_, std::string birth_, std::string certi_)
-	: employee_number(StrToEmployeeNumber(employeeNumber_)), first_name(std::move(firstName_)), last_name(std::move(lastName_)), phone_num_mid(stoi(phoneNumMid_)), phone_num_last(stoi(phoneNumLast_)), birth(stoi(birth_)) {
-	cl = StrToCL(cl_);
-	certi = StrToCerti(certi_);
-	str = employeeNumber_ + "," + first_name + " " + last_name + "," + cl_ + ",010-" + phoneNumMid_ + "-" + phoneNumLast_ + "," + birth_ + "," + certi_;
+static string getFirstName(const string& name) {
+	return name.substr(0, name.find(' '));
 }
+
+static string getLastName(const string& name) {
+	size_t delim_pos = name.find(' ');
+	return name.substr(delim_pos + 1, name.size() - delim_pos);
+}
+
+static unsigned getPhoneNumMid(const string& phone_num) {
+	size_t delim_pos = phone_num.find('-');
+	return stoi(phone_num.substr(delim_pos + 1, 4));
+}
+
+static unsigned getPhoneNumLast(const string& phone_num) {
+	size_t delim_pos = phone_num.find('-', 0);
+	delim_pos = phone_num.find('-', delim_pos + 1);
+	return stoi(phone_num.substr(delim_pos + 1, 4));
+}
+
+static vector<string> ParseInputStringOfEmployee(const string& input) {
+	vector<string> ret(6);
+	size_t pos = 0, npos = 0, i = 0;
+
+	while (pos != string::npos && i < 6) {
+		npos = input.find(',', pos);
+		ret[i++] = input.substr(pos, npos - pos);
+		pos = npos + 1;
+	}
+
+	return ret;
+}
+
+Employee::Employee(std::string input)
+	: employee_number(StrToEmployeeNumber(input.substr(0, input.find(',') - 1))) {
+	vector<string> str_token = std::move(ParseInputStringOfEmployee(input));
+
+	first_name = std::move(getFirstName(str_token[1]));
+	last_name = std::move(getLastName(str_token[1]));
+	cl = StrToCL(str_token[2]);
+	phone_num_mid = getPhoneNumMid(str_token[3]);
+	phone_num_last = getPhoneNumLast(str_token[3]);
+	birth = stoi(str_token[4]);
+	certi = StrToCerti(str_token[5]);
+}
+
+Employee::Employee(std::string employeeNumber_, std::string name_, std::string cl_, std::string phoneNum_, std::string birth_, std::string certi_)
+	: Employee(employeeNumber_ + "," + name_ + "," + cl_ + "," + phoneNum_ + "," + birth_ + "," + certi_) {}
+
+Employee::Employee(std::string employeeNumber_, std::string firstName_, std::string lastName_, std::string cl_, std::string phoneNumMid_, std::string phoneNumLast_, std::string birth_, std::string certi_)
+	: Employee(employeeNumber_, firstName_ + " " + lastName_, cl_, "010-" + phoneNumMid_ + "-" + phoneNumLast_, birth_, certi_) {}
 
 const bool Employee::operator== (const Employee& b) const {
 	if (employee_number == b.employee_number)

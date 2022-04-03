@@ -31,6 +31,8 @@ struct Employee
 	unsigned birth; // YYYYMMDD
 	CERTI certi;
 
+	Employee(std::string input); // ex: Employee("02117175,SBILHUT LDEXRI,CL4,010-2814-1699,19950704,ADV");
+	Employee(std::string employeeNumber_, std::string name_, std::string cl_, std::string phoneNum_, std::string birth_, std::string certi_);
 	Employee(std::string employeeNumber_, std::string firstName_, std::string lastName_, std::string cl_, std::string phoneNumMid_, std::string phoneNumLast_, std::string birth_, std::string certi_);
 
 	const bool operator== (const Employee& b) const;
