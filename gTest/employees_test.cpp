@@ -178,3 +178,10 @@ TEST_F(clientTest, EmployeesTestSearchAndModify) {
     search_list = db->Search([target_cl](Employee& t)->bool { return (t.cl == target_cl); });
     EXPECT_EQ(search_list.size(), 3);
 }
+
+TEST_F(clientTest, EmployeesString) {
+    string test{ "08123556,WN XV,CL1,010-7986-5047,20100614,PRO" };
+    Employee t(test);
+
+    EXPECT_EQ(test, t.to_string());
+}
