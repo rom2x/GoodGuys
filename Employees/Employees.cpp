@@ -6,25 +6,29 @@
 
 using namespace std;
 
+static const string cl_string[] = { "CL1", "CL2", "CL3", "CL4" };
+
 CL StrToCL(const std::string& cl_str) {
-	if (cl_str == "CL1")
+	if (cl_str == cl_string[static_cast<unsigned>(CL::CL1)])
 		return CL::CL1;
-	else if (cl_str == "CL2")
+	else if (cl_str == cl_string[static_cast<unsigned>(CL::CL2)])
 		return CL::CL2;
-	else if (cl_str == "CL3")
+	else if (cl_str == cl_string[static_cast<unsigned>(CL::CL3)])
 		return CL::CL3;
-	else if (cl_str == "CL4")
+	else if (cl_str == cl_string[static_cast<unsigned>(CL::CL4)])
 		return CL::CL4;
 
 	throw invalid_argument("정해지지 않은 CL 형식");
 }
 
+static const string certi_string[] = { "ADV", "PRO", "EX" };
+
 CERTI StrToCerti(const std::string& certi_str) {
-	if (certi_str == "ADV")
+	if (certi_str == certi_string[static_cast<unsigned>(CERTI::ADV)])
 		return CERTI::ADV;
-	else if (certi_str == "PRO")
+	else if (certi_str == certi_string[static_cast<unsigned>(CERTI::PRO)])
 		return CERTI::PRO;
-	else if (certi_str == "EX")
+	else if (certi_str == certi_string[static_cast<unsigned>(CERTI::EX)])
 		return CERTI::EX;
 
 	throw invalid_argument("정해지지 않은 CERTI 형식");
@@ -111,6 +115,16 @@ const bool Employee::operator< (const Employee& b) const {
 
 const bool Employee::operator> (const Employee& b) const {
 	return !operator<(b);
+}
+
+const string Employee::to_string() const {
+	return
+		std::to_string(employee_number % 100000000) + ","
+		+ first_name + " " + last_name + ","
+		+ cl_string[(static_cast<unsigned>(cl))] + ","
+		+ "010-" + std::to_string(phone_num_mid) + "-" + std::to_string(phone_num_last) + ","
+		+ std::to_string(birth) + ","
+		+ certi_string[static_cast<unsigned>(certi)];
 }
 
 class EmployeesImpl : public Employees
