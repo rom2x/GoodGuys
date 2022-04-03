@@ -30,7 +30,7 @@ CERTI StrToCerti(const std::string& certi_str) {
 	throw invalid_argument("정해지지 않은 CERTI 형식");
 }
 
-unsigned StrToEmployeeNumber(const std::string& num) {
+static unsigned StrToEmployeeNumber(const std::string& num) {
 	string t = "";
 
 	if ('6' <= num[0] && num[0] <= '9')
@@ -41,6 +41,31 @@ unsigned StrToEmployeeNumber(const std::string& num) {
 	t.append(num);
 
 	return stoi(t);
+}
+
+Employee::Employee(std::string employeeNumber_, std::string firstName_, std::string lastName_, std::string cl_, std::string phoneNumMid_, std::string phoneNumLast_, std::string birth_, std::string certi_)
+	: employee_number(StrToEmployeeNumber(employeeNumber_)), first_name(std::move(firstName_)), last_name(std::move(lastName_)), phone_num_mid(stoi(phoneNumMid_)), phone_num_last(stoi(phoneNumLast_)), birth(stoi(birth_)) {
+	cl = StrToCL(cl_);
+	certi = StrToCerti(certi_);
+	str = employeeNumber_ + "," + first_name + " " + last_name + "," + cl_ + ",010-" + phoneNumMid_ + "-" + phoneNumLast_ + "," + birth_ + "," + certi_;
+}
+
+const bool Employee::operator== (const Employee& b) const {
+	if (employee_number == b.employee_number)
+		return true;
+	else
+		return false;
+}
+
+const bool Employee::operator< (const Employee& b) const {
+	if (employee_number < b.employee_number)
+		return true;
+	else
+		return false;
+}
+
+const bool Employee::operator> (const Employee& b) const {
+	return !operator<(b);
 }
 
 class EmployeesImpl : public Employees

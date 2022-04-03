@@ -20,8 +20,6 @@ enum class CERTI {
 };
 CERTI StrToCerti(const std::string&);
 
-unsigned StrToEmployeeNumber(const std::string&);
-
 struct Employee
 {
 	const unsigned employee_number; // 69xxxxxx ~ 21xxxxxx
@@ -33,29 +31,11 @@ struct Employee
 	unsigned birth; // YYYYMMDD
 	CERTI certi;
 
-	Employee(std::string employeeNumber_, std::string firstName_, std::string lastName_, std::string cl_, std::string phoneNumMid_, std::string phoneNumLast_, std::string birth_, std::string certi_)
-		: employee_number(StrToEmployeeNumber(employeeNumber_)), first_name(std::move(firstName_)), last_name(std::move(lastName_)), phone_num_mid(stoi(phoneNumMid_)), phone_num_last(stoi(phoneNumLast_)), birth(stoi(birth_)) {
-		cl = StrToCL(cl_);
-		certi = StrToCerti(certi_);
-	}
+	Employee(std::string employeeNumber_, std::string firstName_, std::string lastName_, std::string cl_, std::string phoneNumMid_, std::string phoneNumLast_, std::string birth_, std::string certi_);
 
-	const bool operator== (const Employee& b) const {
-		if (employee_number == b.employee_number)
-			return true;
-		else
-			return false;
-	}
-
-	const bool operator< (const Employee& b) const {
-		if (employee_number < b.employee_number)
-			return true;
-		else
-			return false;
-	}
-
-	const bool operator> (const Employee& b) const {
-		return !operator<(b);
-	}
+	const bool operator== (const Employee& b) const;
+	const bool operator< (const Employee& b) const;
+	const bool operator> (const Employee& b) const;
 };
 
 using employeeList = std::list<Employee>;
