@@ -38,6 +38,8 @@ struct Employee
 	const bool operator== (const Employee& b) const;
 	const bool operator< (const Employee& b) const;
 	const bool operator> (const Employee& b) const;
+
+	const std::string to_string() const;
 };
 
 using employeeList = std::list<Employee>;
