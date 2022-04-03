@@ -123,7 +123,7 @@ public:
 		return ret;
 	}
 
-	virtual const unsigned getEmployeeNumbers() const {
+	virtual const size_t getEmployeeNumbers() const {
 		return list.size();
 	}
 
