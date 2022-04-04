@@ -12,7 +12,10 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	if (argc != 3 || !argv[1] || !argv[2]) return EXIT_FAILURE;
+	if (argc != 3 || !argv[1] || !argv[2]) {
+		cout << "입력값이 부족합니다.\nex) goodguys.exe input.txt output.txt" << endl;
+		return EXIT_FAILURE;
+	}
 
 	unique_ptr< FileInputManager> inputmanager = make_unique<FileInputManager>(argv[1]);
 	unique_ptr< FileOutputManager> outputmanager = make_unique<FileOutputManager>(argv[2]);
