@@ -131,7 +131,7 @@ class EmployeesImpl : public Employees
 {
 public:
 	virtual void Add(Employee& new_employee) override {
-		employeeList::const_iterator pos = FindAscendingOrderPositionAtList(new_employee);
+		employeeList::const_iterator pos = list.end();
 		map.insert(std::pair<unsigned, Employee*>(new_employee.employee_number, &(*list.emplace(pos, new_employee))));
 	}
 
