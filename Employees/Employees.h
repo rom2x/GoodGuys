@@ -52,7 +52,7 @@ public:
 	virtual employeeList Del(Employee&) = 0;
 	virtual employeeList Modify(Employee&, std::function<void (Employee&)>) = 0;
 	virtual employeeList Search(std::function<bool(Employee&)>) = 0;
-	virtual const size_t getEmployeeNumbers() const = 0;
+	virtual const size_t Size() const = 0;
 };
 
 Employees* CreateEmployees();

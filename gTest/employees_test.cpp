@@ -57,14 +57,14 @@ TEST(EmployeeTest, EmployeeOperator) {
 }
 
 TEST_F(clientTest, EmployeesTestSize) {
-    EXPECT_EQ(db->getEmployeeNumbers(), 9);
+    EXPECT_EQ(db->Size(), 9);
 }
 
 TEST_F(clientTest, EmployeesTestAdd) {
     Employee empl = { "12234575", "EOJOEI", "EWFWEF", "CL2", "5332", "6544", "20152623", "PRO" };
     db->Add(empl);
 
-    EXPECT_EQ(db->getEmployeeNumbers(), 10);
+    EXPECT_EQ(db->Size(), 10);
 }
 
 TEST_F(clientTest, EmployeesTestDelete) {
@@ -73,12 +73,12 @@ TEST_F(clientTest, EmployeesTestDelete) {
     Employee empl1 = { "17111236", "VSID", "TVO", "CL1", "3669", "1077", "20120718", "PRO" };
     del_list = db->Del(empl1);
     EXPECT_EQ(del_list.size(), 1);
-    EXPECT_EQ(db->getEmployeeNumbers(), 8);
+    EXPECT_EQ(db->Size(), 8);
 
     Employee empl2 = { "19129568", "SRERLALH", "HMEF", "CL2", "3091", "9521", "19640910", "PRO" };
     del_list = db->Del(empl2);
     EXPECT_EQ(del_list.size(), 1);
-    EXPECT_EQ(db->getEmployeeNumbers(), 7);
+    EXPECT_EQ(db->Size(), 7);
 
     Employee empl3 = { "32523452", "SRERLALH", "HMEF", "CL2", "3091", "9521", "19640910", "PRO" };
     EXPECT_ANY_THROW(db->Del(empl3));
