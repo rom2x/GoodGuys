@@ -27,6 +27,67 @@ public:
 	bool        is_search_and_p;     // be true when SCH & -p
 };
 
+class SearchCondition {
+public:
+	virtual bool Match(Employee in) = 0;
+};
+
+class FirstNameCondition : public SearchCondition {
+public:
+	FirstNameCondition(SearchInput in);
+	virtual bool Match(Employee in) override;
+private:
+	std::string first_name;
+};
+
+class LastNameCondition : public SearchCondition {
+public:
+	LastNameCondition(SearchInput in);
+	virtual bool Match(Employee in) override;
+private:
+	std::string last_name;
+};
+
+class PhoneNumMidCondition : public SearchCondition {
+public:
+	PhoneNumMidCondition(SearchInput in);
+	virtual bool Match(Employee in) override;
+private:
+	unsigned phone_num_mid;
+};
+
+class PhoneNumLastCondition : public SearchCondition {
+public:
+	PhoneNumLastCondition(SearchInput in);
+	virtual bool Match(Employee in) override;
+private:
+	unsigned phone_num_last;
+};
+
+class BirthYearCondition : public SearchCondition {
+public:
+	BirthYearCondition(SearchInput in);
+	virtual bool Match(Employee in) override;
+private:
+	unsigned year;
+};
+
+class BirthMonthCondition : public SearchCondition {
+public:
+	BirthMonthCondition(SearchInput in);
+	virtual bool Match(Employee in) override;
+private:
+	unsigned month;
+};
+
+class BirthDayCondition : public SearchCondition {
+public:
+	BirthDayCondition(SearchInput in);
+	virtual bool Match(Employee in) override;
+private:
+	unsigned day;
+};
+
 class Search {
 public:
 	void SetEmployeeList(employeeList* list);
@@ -34,13 +95,8 @@ public:
 
 private:
 	employeeList* employee_db;
-	void SearchByFirstName		(SearchInput in, employeeList& out);
-	void SearchByLastName		(SearchInput in, employeeList& out);
-	void SearchByPhoneNumMid	(SearchInput in, employeeList& out);
-	void SearchByPhoneNumLast   (SearchInput in, employeeList& out);
-	void SearchByBirthYear		(SearchInput in, employeeList& out);
-	void SearchByBirthMonth		(SearchInput in, employeeList& out);
-	void SearchByBirthDay		(SearchInput in, employeeList& out);
+	SearchCondition* search_condition;
 };
+
 
 #endif
