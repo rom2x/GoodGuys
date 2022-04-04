@@ -22,7 +22,8 @@ static void Print(const string& outstr) {
 	cout << outstr << endl;
 }
 
-static string Output(string name, bool opt, const employeeList& list) {
+
+static string Output(string name, bool opt, employeeList& list) {
 	string ret = "";
 	if (list.size() == 0) {
 		Print(name + ",NONE");
@@ -32,6 +33,9 @@ static string Output(string name, bool opt, const employeeList& list) {
 
 	if (opt) {
 		int i = 0;
+
+		list.sort();
+
 		for (auto empl : list) {
 			Print(name + ',' + empl.to_string());
 			ret += name + ',' + empl.to_string() + "\n";
