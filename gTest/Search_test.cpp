@@ -28,7 +28,7 @@ private :
 	Employees* db;;
 };
 
-TEST(Search_EmployNum, EmplyNum_2020123099) {
+TEST(Search_EmployNum, EmplyNum_20123099) {
 	SearchTestDb search_test_db;
 	Search search;
 	SearchInput in;
@@ -37,7 +37,7 @@ TEST(Search_EmployNum, EmplyNum_2020123099) {
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "2020123099";
+	in.search_pattern = "20123099";
 	in.search_type = SearchType::EMPLOYEE_NUM;
 
 	out = search.DoSearch(in);

@@ -5,7 +5,7 @@ EmployNumCondition::EmployNumCondition(SearchInput in) {
 	this->employee_number = stoi(in.search_pattern);
 
 	Match = [this](Employee& in) -> bool {
-		return in.employee_number == this->employee_number;
+		return in.employee_number % 100000000 == this->employee_number;
 	};
 }
 
