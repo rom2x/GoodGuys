@@ -7,7 +7,7 @@ vector <string> FileInputManager::GetInputStringsFromFile() {
 	while (IsEndOfFile() == false) {
 		getline(input_file_stream_, eachline);
 		if (!eachline.empty()) {
-			result.push_back(eachline);
+			result.emplace_back(eachline);
 		}
 	}
 	return result;

@@ -7,7 +7,7 @@ vector<Command*> InputParserManager::GetCommandList(vector<string> inputstrings)
 		vector <string> parsedstring = GetEachLineParsedStrings(astring);
 
 		auto commandtype = parsedstring[0];
-		result.push_back(GetCommand_[command_to_index_[commandtype]](parsedstring));
+		result.emplace_back(GetCommand_[command_to_index_[commandtype]](parsedstring));
 	}
 
 	return result;
@@ -21,7 +21,7 @@ vector <string> InputParserManager::GetEachLineParsedStrings(string astring) {
 	lpos = astring.find_first_of(',', fpos);
 
 	while (string::npos != fpos || string::npos != lpos) {
-		result.push_back(astring.substr(fpos, lpos - fpos));
+		result.emplace_back(astring.substr(fpos, lpos - fpos));
 		fpos = astring.find_first_not_of(',', lpos);
 		lpos = astring.find_first_of(',', fpos);
 	}
