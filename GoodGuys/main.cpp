@@ -22,9 +22,10 @@ int main(int argc, char* argv[])
 
 	vector<Command*> command_list = parsermanager->GetCommandList(inputmanager->GetInputStringsFromFile());
 
-	//Employees* employees = CreateEmployees();
+	Employees* employees = CreateEmployees();
 	for (auto a_command : command_list) {
-		outputmanager->WriteResultToFile("ResultString\n /*a_command->Process(employees)*/");
+		string result_string = a_command->Process(employees);
+		outputmanager->WriteResultToFile(result_string);
 	}
 
 	return EXIT_SUCCESS;
