@@ -11,31 +11,49 @@
 #include "../Employees/employees.h"
 
 enum class SearchType {
+	EMPLOYEE_NUM,
+	NAME,
 	FIRST_NAME,
 	LAST_NAME,
+	PHONE_NUM,
 	PHONE_NUM_MID,
 	PHONE_NUM_LAST,
+	BIRTHDAY,
 	BIRTHDAY_YEAR,
 	BIRTHDAY_MONTH,
-	BIRTHDAY_DAY
+	BIRTHDAY_DAY,
+	CL,
+	CERTI,
 };
 
 class SearchInput {
 public:
 	SearchType  search_type;
 	std::string search_pattern;
-	bool        is_search_and_p;     // be true when SCH & -p
 };
 
 class SearchCondition {
 public:
-	virtual bool Match(Employee in) = 0;
+	std::function<bool(Employee&)> Match;
+};
+
+class EmployNumCondition : public SearchCondition {
+public:
+	EmployNumCondition(SearchInput in);
+private:
+	unsigned  employee_number;
+};
+
+class NameCondition : public SearchCondition {
+public:
+	NameCondition(SearchInput in);
+private:
+	std::string name;
 };
 
 class FirstNameCondition : public SearchCondition {
 public:
 	FirstNameCondition(SearchInput in);
-	virtual bool Match(Employee in) override;
 private:
 	std::string first_name;
 };
@@ -43,15 +61,20 @@ private:
 class LastNameCondition : public SearchCondition {
 public:
 	LastNameCondition(SearchInput in);
-	virtual bool Match(Employee in) override;
 private:
 	std::string last_name;
+};
+
+class PhoneNumCondition : public SearchCondition {
+public:
+	PhoneNumCondition(SearchInput in);
+private:
+	std::string phone_num;
 };
 
 class PhoneNumMidCondition : public SearchCondition {
 public:
 	PhoneNumMidCondition(SearchInput in);
-	virtual bool Match(Employee in) override;
 private:
 	unsigned phone_num_mid;
 };
@@ -59,15 +82,20 @@ private:
 class PhoneNumLastCondition : public SearchCondition {
 public:
 	PhoneNumLastCondition(SearchInput in);
-	virtual bool Match(Employee in) override;
 private:
 	unsigned phone_num_last;
+};
+
+class BirthCondition : public SearchCondition {
+public:
+	BirthCondition(SearchInput in);
+private:
+	unsigned birth;
 };
 
 class BirthYearCondition : public SearchCondition {
 public:
 	BirthYearCondition(SearchInput in);
-	virtual bool Match(Employee in) override;
 private:
 	unsigned year;
 };
@@ -75,7 +103,6 @@ private:
 class BirthMonthCondition : public SearchCondition {
 public:
 	BirthMonthCondition(SearchInput in);
-	virtual bool Match(Employee in) override;
 private:
 	unsigned month;
 };
@@ -83,18 +110,32 @@ private:
 class BirthDayCondition : public SearchCondition {
 public:
 	BirthDayCondition(SearchInput in);
-	virtual bool Match(Employee in) override;
 private:
 	unsigned day;
 };
 
+class ClCondition : public SearchCondition {
+public:
+	ClCondition(SearchInput in);
+private:
+	CL cl;
+};
+
+class CertiCondition : public SearchCondition {
+public:
+	CertiCondition(SearchInput in);
+private:
+	CERTI certi;
+};
+
+
 class Search {
 public:
-	void SetEmployeeList(employeeList* list);
+	void SetEmployeeList(Employees* employees_ptr);
 	employeeList DoSearch(SearchInput in);
 
 private:
-	employeeList* employee_db;
+	Employees* employees_;
 	SearchCondition* search_condition;
 };
 
