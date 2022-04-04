@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <memory>
 
 #include "file_input_manager.h"
 #include "file_output_manager.h"
@@ -11,30 +12,21 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	const char* inputfilename = argv[1];
-	const char* outputfilename = argv[2];
+	if (argc != 3 || !argv[1] || !argv[2]) return EXIT_FAILURE;
 
-	FileInputManager* inputmanager = new FileInputManager(inputfilename);
-	FileOutputManager* outputmanager = new FileOutputManager(outputfilename);
-	InputParserManager* parsermanager = new InputParserManager();
+	unique_ptr< FileInputManager> inputmanager = make_unique<FileInputManager>(argv[1]);
+	unique_ptr< FileOutputManager> outputmanager = make_unique<FileOutputManager>(argv[2]);
+	unique_ptr< InputParserManager> parsermanager = make_unique<InputParserManager>();
 
-	if (!inputmanager->IsFileValid()) return 0;
+	if (!inputmanager->IsFileValid()) return EXIT_FAILURE;
 
-	vector<string> inputstrings = inputmanager->GetInputStringsFromFile();
-	vector<Command*> command_list = parsermanager->GetCommandList(inputstrings);
+	vector<Command*> command_list = parsermanager->GetCommandList(inputmanager->GetInputStringsFromFile());
 
 	//Employees* employees = CreateEmployees();
 	for (auto a_command : command_list) {
-		//a_command->Process(employees);
-		outputmanager->WriteResultToFile("ResultString\n");
+		outputmanager->WriteResultToFile("ResultString\n /*a_command->Process(employees)*/");
 	}
 
-	//delete employees;
-	delete inputmanager;
-	delete outputmanager;
-	delete parsermanager;
-
-
-	return 0;
+	return EXIT_SUCCESS;
 }
 
