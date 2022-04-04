@@ -114,7 +114,7 @@ const bool Employee::operator< (const Employee& b) const {
 }
 
 const bool Employee::operator> (const Employee& b) const {
-	return !operator<(b);
+	return !operator<(b) && !operator==(b);
 }
 
 const string Employee::to_string() const {
