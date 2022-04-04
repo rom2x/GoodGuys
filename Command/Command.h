@@ -35,8 +35,10 @@ public:
 			str = command_[0] + "," + std::to_string(employees.size()) + "\n";
 		}
 		else if (command_[1] == "-p") {
+			int employeeCount = 0;
 			for (Employee* employee : employees) {
 				str += (command_[0] + "," + employee->to_string() + "\n");
+				if (++employeeCount >= 5) break;
 			}
 		}
 		return str;
