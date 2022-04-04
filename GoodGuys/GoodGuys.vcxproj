@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_input_manager.h" />
+    <ClInclude Include="file_output_manager.h" />
     <ClInclude Include="input_parser_manager.h" />
     <ClInclude Include="Sorter.h" />
   </ItemGroup>
