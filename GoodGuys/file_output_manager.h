@@ -12,6 +12,10 @@ public:
         : output_file_name_(output_file_name), output_file_stream_(output_file_name) {
     }
 
+    ~FileOutputManager() {
+        output_file_stream_.close();
+    }
+
     void WriteResultToFile(const string& result) {
         if (result != "") {
             output_file_stream_ << result;
