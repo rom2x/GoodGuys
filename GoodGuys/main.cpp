@@ -5,7 +5,7 @@
 #include "file_input_manager.h"
 #include "file_output_manager.h"
 #include "input_parser_manager.h"
-#include "../Command/Command.h"
+#include "../command/command.h"
 #include "../Employees/Employees.h"
 
 using namespace std;
