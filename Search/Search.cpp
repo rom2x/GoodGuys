@@ -13,7 +13,7 @@ NameCondition::NameCondition(SearchInput in) {
 	this->name = in.search_pattern;
 
 	Match = [this](Employee& in) -> bool {
-		return in.first_name + in.last_name == this->name;
+		return in.first_name + " " + in.last_name == this->name;
 	};
 }
 
@@ -37,7 +37,7 @@ PhoneNumCondition::PhoneNumCondition(SearchInput in) {
 	this->phone_num = in.search_pattern;
 
 	Match = [this](Employee& in) -> bool {
-		return std::to_string(in.phone_num_mid) + std::to_string(in.phone_num_last) == this->phone_num;
+		return "010-" + std::to_string(in.phone_num_mid) + "-" + std::to_string(in.phone_num_last) == this->phone_num;
 	};
 }
 
