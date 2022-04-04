@@ -4,24 +4,38 @@
 #include <vector>
 
 #include "../Employees/employees.h"
+#include "../Search/Search.h"
 
 using namespace std;
 
 class Command
 {
 public:
-	Command(vector<string> command) : command_(command) {
+	Command(string name, vector<string> command) : name_(name), command_(command) {
 	}
 
 	virtual string Process(Employees* database) = 0;
 	virtual void CommandValidation() = 0;
 
-	vector<string>& get_command(void)
-	{
+	vector<string>& get_command(void) {
 		return this->command_;
 	}
 
+	string& get_name(void) {
+		return this->name_;
+	}
+
+	virtual SearchInput get_search_input(void);
+
+	void print_error_msg(void) {
+		string errorMessage = "## ERROR ::" + get_command()[0] + ". size: ";
+		cout << errorMessage;
+		cout << this->get_command().size() << endl;
+		throw invalid_argument(errorMessage);
+	}
+
 protected:
+	string name_;
 	vector<string> command_;
 };
 
@@ -46,130 +60,78 @@ public:
 	vector<Employee*> result_employees;
 };
 
-class Add : public Command
+class AddCommand : public Command
 {
 public:
-	Add(vector<string> command) : Command(command)
+	AddCommand(vector<string> command) : Command("ADD", command)
 	{
 		this->CommandValidation();
 	}
 
-	virtual string Process(Employees* database) override
-	{
-		cout << "do Add" << endl;
+	virtual string Process(Employees* database) override;
+	virtual void CommandValidation() override;
 
-		//Employee employee;
-		//database->add(employee);
-		return "";
-	}
-
-	virtual void CommandValidation() override
-	{
-		if (this->ADD_COMMAND_SIZE != this->get_command().size())
-			throw invalid_argument("## ERROR :: Add()");
-	}
 private:
 	static const int ADD_COMMAND_SIZE = 10;
 };
 
-class Del : public PrintableCommand
+class DelCommand : public Command
 {
 public:
-	Del(vector<string> command) : PrintableCommand(command)
+	DelCommand(vector<string> command) : Command("DEL", command)
 	{
 		this->CommandValidation();
 	}
 
-	virtual string Process(Employees* database) override
-	{
-		cout << "do Del" << endl;
+	virtual string Process(Employees* database) override;
+	virtual void CommandValidation() override;
 
-		throw invalid_argument("TODO: need to impl");
-
-		//Employee employee;
-		//result_employees = database->del(employee);
-		return PrintResult(result_employees);
-	}
-
-	virtual void CommandValidation() override
-	{
-		if (this->DEL_COMMAND_SIZE != this->get_command().size())
-			throw invalid_argument("## ERROR :: Del()");
-	}
 private:
 	static const int DEL_COMMAND_SIZE = 6;
 };
 
-class Search : public PrintableCommand
+class SearchCommand : public Command
 {
 public:
-	Search(vector<string> command) : PrintableCommand(command)
+	SearchCommand(vector<string> command) : Command("SCH", command)
 	{
 		this->CommandValidation();
 	}
 
-	virtual string Process(Employees* database) override
-	{
-		cout << "do Search" << endl;
-
-		throw invalid_argument("TODO: need to impl");
-
-		// TODO: this->getSearch()->search(employee);
-		return PrintResult(result_employees);
-	}
-
-	virtual void CommandValidation() override
-	{
-		if (this->SEARCH_COMMAND_SIZE != this->get_command().size())
-			throw invalid_argument("## ERROR :: Search()");
-	}
+	virtual string Process(Employees* database) override;
+	virtual void CommandValidation() override;
 
 private:
 	static const int SEARCH_COMMAND_SIZE = 6;
 };
 
-class Modify : public PrintableCommand
+class ModifyCommand : public Command
 {
 public:
-	Modify(vector<string> command) : PrintableCommand(command)
+	ModifyCommand(vector<string> command) : Command("MOD", command)
 	{
 		this->CommandValidation();
 	}
 
-	virtual string Process(Employees* database) override
-	{
-		cout << "do Modify" << endl;
-
-		throw invalid_argument("TODO: need to impl");
-
-		//Employee src_employee;
-		//Employee dst_employee;
-		//result_employees = database->modify(src_employee, dst_employee);
-		return PrintResult(result_employees);
-	}
-
-	virtual void CommandValidation() override
-	{
-		if (this->MODIFY_COMMAND_SIZE != this->get_command().size())
-			throw invalid_argument("## error :: modify()");
-	}
+	virtual string Process(Employees* database) override;
+	virtual void CommandValidation() override;
 
 private:
 	static const int MODIFY_COMMAND_SIZE = 8;
 };
 
 static Command* GetAddCommand(vector<string> input_cmd_param) {
-	return new Add(input_cmd_param);
+	return new AddCommand(input_cmd_param);
 }
 
 static Command* GetDelCommand(vector<string> input_cmd_param) {
-	return new Del(input_cmd_param);
+	return new DelCommand(input_cmd_param);
 }
 
 static Command* GetModCommand(vector<string> input_cmd_param) {
-	return new Modify(input_cmd_param);
+	return new ModifyCommand(input_cmd_param);
 }
 
 static Command* GetSchCommand(vector<string> input_cmd_param) {
-	return new Search(input_cmd_param);
+	return new SearchCommand(input_cmd_param);
 }
