@@ -57,7 +57,7 @@ TEST(Search_Name,Name_CLEE) {
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "CLEE";
+	in.search_pattern = "C LEE";
 	in.search_type = SearchType::NAME;
 
 	out = search.DoSearch(in);
@@ -118,7 +118,7 @@ TEST(Search_PhoneNum, PhoneNum_12377524) {
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "12377524";
+	in.search_pattern = "010-1237-7524";
 	in.search_type = SearchType::PHONE_NUM;
 
 	out = search.DoSearch(in);
