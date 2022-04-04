@@ -182,7 +182,7 @@ public:
 		return ret;
 	}
 
-	virtual const size_t getEmployeeNumbers() const {
+	virtual const size_t Size() const {
 		return list.size();
 	}
 
