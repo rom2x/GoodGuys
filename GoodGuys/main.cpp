@@ -24,8 +24,7 @@ int main(int argc, char* argv[])
 
 	Employees* employees = CreateEmployees();
 	for (auto a_command : command_list) {
-		string result_string = a_command->Process(employees);
-		outputmanager->WriteResultToFile(result_string);
+		outputmanager->WriteResultToFile(a_command->Process(employees));
 	}
 
 	return EXIT_SUCCESS;
