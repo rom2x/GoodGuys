@@ -53,6 +53,7 @@ static string Output(string name, bool opt, employeeList& list) {
 SearchInput Command::get_search_input(void) {
 	SearchInput search_input;
 	search_input.search_pattern = get_command()[5];
+	search_input.search_pattern.erase(search_input.search_pattern.find_last_not_of(" \t\n\r\f\v") + 1);
 
 	if ("employeeNum" == get_command()[4]) {
 		search_input.search_type = SearchType::EMPLOYEE_NUM;
