@@ -15,7 +15,7 @@ public:
 	Command(string name, vector<string> command) : name_(name), command_(command) {
 	}
 
-	virtual string Process(Employees* database) = 0;
+	virtual string Process(Employees* employees) = 0;
 	virtual void CommandValidation() = 0;
 
 	vector<string>& get_command(void) {
@@ -42,9 +42,9 @@ class SearchableCommand : public Command
 {
 public:
 	using Command :: Command;
-	employeeList SearchEmployees(Employees* database) {
+	employeeList SearchEmployees(Employees* employees) {
 		shared_ptr<Search> search(new Search());
-		search->SetEmployeeList(database);
+		search->SetEmployeeList(employees);
 		return std::move(search->DoSearch(GetSearchType(), GetSearchPattern()));
 	}
 
@@ -61,7 +61,7 @@ public:
 		this->CommandValidation();
 	}
 
-	virtual string Process(Employees* database) override;
+	virtual string Process(Employees* employees) override;
 	virtual void CommandValidation() override;
 
 private:
@@ -76,7 +76,7 @@ public:
 		this->CommandValidation();
 	}
 
-	virtual string Process(Employees* database) override;
+	virtual string Process(Employees* employees) override;
 	virtual void CommandValidation() override;
 
 private:
@@ -91,7 +91,7 @@ public:
 		this->CommandValidation();
 	}
 
-	virtual string Process(Employees* database) override;
+	virtual string Process(Employees* employees) override;
 	virtual void CommandValidation() override;
 
 private:
@@ -106,7 +106,7 @@ public:
 		this->CommandValidation();
 	}
 
-	virtual string Process(Employees* database) override;
+	virtual string Process(Employees* employees) override;
 	virtual void CommandValidation() override;
 
 private:
