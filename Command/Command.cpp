@@ -19,7 +19,9 @@ static string getPhoneNumLast(const string& in) {
 }
 
 static void Print(const string& outstr) {
+#if (PRINT_CONSOLE == 1)
 	cout << outstr << endl;
+#endif
 }
 
 
