@@ -28,7 +28,10 @@ int main(int argc, char* argv[])
 	Employees* employees = CreateEmployees();
 	for (auto a_command : command_list) {
 		outputmanager->WriteResultToFile(a_command->Process(employees));
+		delete a_command;
 	}
+
+	delete employees;
 
 	return EXIT_SUCCESS;
 }
