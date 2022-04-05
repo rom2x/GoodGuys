@@ -48,6 +48,7 @@ public:
 		return std::move(search->DoSearch(GetSearchType(), GetSearchPattern()));
 	}
 
+private:
 	string GetSearchPattern(void);
 	SearchType GetSearchType(void);
 
