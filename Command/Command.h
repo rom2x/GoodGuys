@@ -26,9 +26,6 @@ public:
 		return this->name_;
 	}
 
-	virtual string GetSearchPattern(void);
-	virtual SearchType GetSearchType(void);
-
 	void print_error_msg(void) {
 		string errorMessage = "## ERROR ::" + get_command()[0] + ". size: ";
 		cout << errorMessage;
@@ -50,6 +47,9 @@ public:
 		search->SetEmployeeList(database);
 		return std::move(search->DoSearch(GetSearchType(), GetSearchPattern()));
 	}
+
+	string GetSearchPattern(void);
+	SearchType GetSearchType(void);
 
 	vector<Employee*> result_employees;
 };

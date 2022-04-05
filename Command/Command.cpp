@@ -52,13 +52,13 @@ static string Output(string name, bool opt, employeeList& list) {
 	return ret;
 }
 
-string Command::GetSearchPattern(void) {
+string SearchableCommand::GetSearchPattern(void) {
 	string search_pattern = get_command()[5];
 	search_pattern.erase(search_pattern.find_last_not_of(" \t\n\r\f\v") + 1);
 	return search_pattern ;
 }
 
-SearchType Command::GetSearchType(void) {
+SearchType SearchableCommand::GetSearchType(void) {
 	if ("employeeNum" == get_command()[4]) {
 		return SearchType::EMPLOYEE_NUM;
 	}
