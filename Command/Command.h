@@ -39,24 +39,16 @@ protected:
 	vector<string> command_;
 };
 
-class PrintableCommand : public Command
+class SearchableCommand : public Command
 {
 public:
 	using Command :: Command;
-	string PrintResult(vector<Employee*> employees) {
-		string str = "";
-		if (command_[1] == " ") {
-			str = command_[0] + "," + std::to_string(employees.size()) + "\n";
-		}
-		else if (command_[1] == "-p") {
-			int employeeCount = 0;
-			for (Employee* employee : employees) {
-				str += (command_[0] + "," + employee->to_string() + "\n");
-				if (++employeeCount >= 5) break;
-			}
-		}
-		return str;
+	employeeList SearchEmployees(Employees* database) {
+		shared_ptr<Search> search(new Search());
+		search->SetEmployeeList(database);
+		return std::move(search->DoSearch(get_search_input()));
 	}
+
 	vector<Employee*> result_employees;
 };
 
@@ -75,10 +67,10 @@ private:
 	static const int ADD_COMMAND_SIZE = 10;
 };
 
-class DelCommand : public Command
+class DelCommand : public SearchableCommand
 {
 public:
-	DelCommand(vector<string> command) : Command("DEL", command)
+	DelCommand(vector<string> command) : SearchableCommand("DEL", command)
 	{
 		this->CommandValidation();
 	}
@@ -90,10 +82,10 @@ private:
 	static const int DEL_COMMAND_SIZE = 6;
 };
 
-class SearchCommand : public Command
+class SearchCommand : public SearchableCommand
 {
 public:
-	SearchCommand(vector<string> command) : Command("SCH", command)
+	SearchCommand(vector<string> command) : SearchableCommand("SCH", command)
 	{
 		this->CommandValidation();
 	}
@@ -105,10 +97,10 @@ private:
 	static const int SEARCH_COMMAND_SIZE = 6;
 };
 
-class ModifyCommand : public Command
+class ModifyCommand : public SearchableCommand
 {
 public:
-	ModifyCommand(vector<string> command) : Command("MOD", command)
+	ModifyCommand(vector<string> command) : SearchableCommand("MOD", command)
 	{
 		this->CommandValidation();
 	}

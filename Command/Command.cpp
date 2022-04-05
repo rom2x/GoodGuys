@@ -119,9 +119,7 @@ void AddCommand::CommandValidation() {
 }
 
 string DelCommand::Process(Employees* database) {
-	shared_ptr<Search> search(new Search());
-	search->SetEmployeeList(database);
-	employeeList delete_employee_list = std::move(search->DoSearch(get_search_input()));
+	employeeList delete_employee_list = SearchEmployees(database);
 
 	for (auto delete_employee : delete_employee_list) {
 		database->Del(delete_employee);
@@ -137,9 +135,7 @@ void DelCommand::CommandValidation() {
 }
 
 string SearchCommand::Process(Employees* database) {
-	shared_ptr<Search> search(new Search());
-	search->SetEmployeeList(database);
-	employeeList search_employee_list = std::move(search->DoSearch(get_search_input()));
+	employeeList search_employee_list = SearchEmployees(database);
 
 	return Output(get_name(), get_command()[1] == "-p", search_employee_list);
 }
@@ -155,9 +151,7 @@ using mod_func = function<void(Employee&)>;
 static mod_func GetModFunction(string target, string modify_val);
 
 string ModifyCommand::Process(Employees* database) {
-	shared_ptr<Search> search(new Search());
-	search->SetEmployeeList(database);
-	employeeList modify_employee_list = std::move(search->DoSearch(get_search_input()));
+	employeeList modify_employee_list = SearchEmployees(database);
 
 	for (auto employee : modify_employee_list) {
 		database->Modify(employee, GetModFunction(get_command()[6], get_command()[7]));
