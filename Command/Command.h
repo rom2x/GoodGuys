@@ -51,8 +51,6 @@ public:
 private:
 	string GetSearchPattern(void);
 	SearchType GetSearchType(void);
-
-	vector<Employee*> result_employees;
 };
 
 class AddCommand : public Command
