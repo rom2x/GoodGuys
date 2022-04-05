@@ -7,7 +7,8 @@
 
 #include <iostream>
 #include <list>
-#include <string>
+#include <sstream>
+#include <Vector>
 #include "../Employees/employees.h"
 
 using namespace std;
@@ -44,7 +45,8 @@ class NameCondition : public SearchCondition {
 public:
 	NameCondition(string search_pattern);
 private:
-	std::string name;
+	std::string first_name;
+	std::string last_name;
 };
 
 class FirstNameCondition : public SearchCondition {
@@ -65,7 +67,8 @@ class PhoneNumCondition : public SearchCondition {
 public:
 	PhoneNumCondition(string search_pattern);
 private:
-	std::string phone_num;
+	unsigned phone_num_mid;
+	unsigned phone_num_last;
 };
 
 class PhoneNumMidCondition : public SearchCondition {
