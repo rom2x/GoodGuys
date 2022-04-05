@@ -30,10 +30,8 @@ public:
 
 	void print_error_msg(void) {
 		string errorMessage = "## ERROR ::" + get_command()[0] + ". size: ";
-#if (PRINT_CONSOLE == 1)
 		cout << errorMessage;
 		cout << this->get_command().size() << endl;
-#endif
 		throw invalid_argument(errorMessage);
 	}
 
