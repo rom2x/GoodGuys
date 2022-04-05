@@ -31,16 +31,17 @@ private :
 TEST(Search_EmployNum, EmplyNum_20123099) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "20123099";
-	in.search_type = SearchType::EMPLOYEE_NUM;
+	search_pattern = "20123099";
+	search_type = SearchType::EMPLOYEE_NUM;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 1);
@@ -51,16 +52,17 @@ TEST(Search_EmployNum, EmplyNum_20123099) {
 TEST(Search_Name,Name_CLEE) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "C LEE";
-	in.search_type = SearchType::NAME;
+	search_pattern = "C LEE";
+	search_type = SearchType::NAME;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 1);
@@ -70,16 +72,17 @@ TEST(Search_Name,Name_CLEE) {
 TEST(Search_FirstName, FirstName_A) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList( search_test_db.GetEmployeeDb() );
 
-	in.search_pattern = "A";
-	in.search_type = SearchType::FIRST_NAME;
+	search_pattern = "A";
+	search_type = SearchType::FIRST_NAME;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 2);
@@ -91,16 +94,17 @@ TEST(Search_FirstName, FirstName_A) {
 TEST(Search_LastName, LastName_LEE) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "LEE";
-	in.search_type = SearchType::LAST_NAME;
+	search_pattern = "LEE";
+	search_type = SearchType::LAST_NAME;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 2);
@@ -112,16 +116,17 @@ TEST(Search_LastName, LastName_LEE) {
 TEST(Search_PhoneNum, PhoneNum_12377524) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "010-1237-7524";
-	in.search_type = SearchType::PHONE_NUM;
+	search_pattern = "010-1237-7524";
+	search_type = SearchType::PHONE_NUM;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 1);
@@ -131,16 +136,17 @@ TEST(Search_PhoneNum, PhoneNum_12377524) {
 TEST(Search_PhoneNumMid, PhoneNumMid_1237) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "1237";
-	in.search_type = SearchType::PHONE_NUM_MID;
+	search_pattern = "1237";
+	search_type = SearchType::PHONE_NUM_MID;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 1);
@@ -150,16 +156,17 @@ TEST(Search_PhoneNumMid, PhoneNumMid_1237) {
 TEST(Search_PhoneNumLast, PhoneNumLast_7824) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "7824";
-	in.search_type = SearchType::PHONE_NUM_LAST;
+	search_pattern = "7824";
+	search_type = SearchType::PHONE_NUM_LAST;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 1);
@@ -169,16 +176,17 @@ TEST(Search_PhoneNumLast, PhoneNumLast_7824) {
 TEST(Search_Birthday, Birthday_19641112) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "19641112";
-	in.search_type = SearchType::BIRTHDAY;
+	search_pattern = "19641112";
+	search_type = SearchType::BIRTHDAY;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 1);
@@ -188,16 +196,17 @@ TEST(Search_Birthday, Birthday_19641112) {
 TEST(Search_BirthdayYear, BirthdayYear_1977) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "1977";
-	in.search_type = SearchType::BIRTHDAY_YEAR;
+	search_pattern = "1977";
+	search_type = SearchType::BIRTHDAY_YEAR;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 2);
@@ -209,16 +218,17 @@ TEST(Search_BirthdayYear, BirthdayYear_1977) {
 TEST(Search_BirthdayMonth, BirthdayMonth_11) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "11";
-	in.search_type = SearchType::BIRTHDAY_MONTH;
+	search_pattern = "11";
+	search_type = SearchType::BIRTHDAY_MONTH;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 6);
@@ -238,16 +248,17 @@ TEST(Search_BirthdayMonth, BirthdayMonth_11) {
 TEST(Search_BirthdayDay, BirthdayDay_12) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "12";
-	in.search_type = SearchType::BIRTHDAY_DAY;
+	search_pattern = "12";
+	search_type = SearchType::BIRTHDAY_DAY;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 3);
@@ -261,16 +272,17 @@ TEST(Search_BirthdayDay, BirthdayDay_12) {
 TEST(Search_Cl, Cl_2) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "CL2";
-	in.search_type = SearchType::CL;
+	search_pattern = "CL2";
+	search_type = SearchType::CL;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 2);
@@ -282,16 +294,17 @@ TEST(Search_Cl, Cl_2) {
 TEST(Search_Certi, Certi_ADV) {
 	SearchTestDb search_test_db;
 	Search search;
-	SearchInput in;
+	SearchType search_type;
+	string search_pattern;
 	employeeList out;
 	employeeList::iterator it;
 
 	search.SetEmployeeList(search_test_db.GetEmployeeDb());
 
-	in.search_pattern = "ADV";
-	in.search_type = SearchType::CERTI;
+	search_pattern = "ADV";
+	search_type = SearchType::CERTI;
 
-	out = search.DoSearch(in);
+	out = search.DoSearch(search_type, search_pattern);
 
 	it = out.begin();
 	ASSERT_EQ(out.size(), 4);
