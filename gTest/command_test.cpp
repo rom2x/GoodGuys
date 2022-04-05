@@ -46,7 +46,6 @@ protected:
         search_cmd.push_back("");
         search_cmd.push_back("");
         search_cmd.push_back("name");
-        search_cmd.push_back("KYUMOK KIM");
         search_cmd.push_back("KYUMOK KIM\t");
 
         modify_cmd.push_back("MOD");
