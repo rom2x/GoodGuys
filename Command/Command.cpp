@@ -52,59 +52,61 @@ static string Output(string name, bool opt, employeeList& list) {
 	return ret;
 }
 
-SearchInput Command::get_search_input(void) {
-	SearchInput search_input;
-	search_input.search_pattern = get_command()[5];
-	search_input.search_pattern.erase(search_input.search_pattern.find_last_not_of(" \t\n\r\f\v") + 1);
+string Command::GetSearchPattern(void) {
+	string search_pattern = get_command()[5];
+	search_pattern.erase(search_pattern.find_last_not_of(" \t\n\r\f\v") + 1);
+	return search_pattern ;
+}
 
+SearchType Command::GetSearchType(void) {
 	if ("employeeNum" == get_command()[4]) {
-		search_input.search_type = SearchType::EMPLOYEE_NUM;
+		return SearchType::EMPLOYEE_NUM;
 	}
 	else if ("name" == get_command()[4]) {
 		if ("-f" == get_command()[2]) {
-			search_input.search_type = SearchType::FIRST_NAME;
+			return SearchType::FIRST_NAME;
 		}
 		else if ("-l" == get_command()[2]) {
-			search_input.search_type = SearchType::LAST_NAME;
+			return SearchType::LAST_NAME;
 		}
 		else {
-			search_input.search_type = SearchType::NAME;
+			return SearchType::NAME;
 		}
 	}
 	else if ("cl" == get_command()[4]) {
-		search_input.search_type = SearchType::CL;
+		return SearchType::CL;
 	}
 	else if ("phoneNum" == get_command()[4]) {
 		if ("-m" == get_command()[2]) {
-			search_input.search_type = SearchType::PHONE_NUM_MID;
+			return SearchType::PHONE_NUM_MID;
 		}
 		else if ("-l" == get_command()[2]) {
-			search_input.search_type = SearchType::PHONE_NUM_LAST;
+			return SearchType::PHONE_NUM_LAST;
 		}
 		else {
-			search_input.search_type = SearchType::PHONE_NUM;
+			return SearchType::PHONE_NUM;
 		}
 	}
 	else if ("birthday" == get_command()[4]) {
 		if ("-y" == get_command()[2]) {
-			search_input.search_type = SearchType::BIRTHDAY_YEAR;
+			return SearchType::BIRTHDAY_YEAR;
 		}
 		else if ("-m" == get_command()[2]) {
-			search_input.search_type = SearchType::BIRTHDAY_MONTH;
+			return SearchType::BIRTHDAY_MONTH;
 		}
 		else if ("-d" == get_command()[2]) {
-			search_input.search_type = SearchType::BIRTHDAY_DAY;
+			return SearchType::BIRTHDAY_DAY;
 		}
 		else {
-			search_input.search_type = SearchType::BIRTHDAY;
+			return SearchType::BIRTHDAY;
 		}
 	}
 	else if ("certi" == get_command()[4])
 	{
-		search_input.search_type = SearchType::CERTI;
+		return SearchType::CERTI;
 	}
 
-	return search_input;
+	throw invalid_argument("Invalid search type\n");
 }
 
 string AddCommand::Process(Employees* database) {

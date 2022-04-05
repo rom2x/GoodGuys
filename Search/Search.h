@@ -10,6 +10,8 @@
 #include <string>
 #include "../Employees/employees.h"
 
+using namespace std;
+
 enum class SearchType {
 	EMPLOYEE_NUM,
 	NAME,
@@ -26,12 +28,6 @@ enum class SearchType {
 	CERTI,
 };
 
-class SearchInput {
-public:
-	SearchType  search_type;
-	std::string search_pattern;
-};
-
 class SearchCondition {
 public:
 	std::function<bool(Employee&)> Match;
@@ -39,91 +35,91 @@ public:
 
 class EmployNumCondition : public SearchCondition {
 public:
-	EmployNumCondition(SearchInput in);
+	EmployNumCondition(string search_pattern);
 private:
 	unsigned  employee_number;
 };
 
 class NameCondition : public SearchCondition {
 public:
-	NameCondition(SearchInput in);
+	NameCondition(string search_pattern);
 private:
 	std::string name;
 };
 
 class FirstNameCondition : public SearchCondition {
 public:
-	FirstNameCondition(SearchInput in);
+	FirstNameCondition(string search_pattern);
 private:
 	std::string first_name;
 };
 
 class LastNameCondition : public SearchCondition {
 public:
-	LastNameCondition(SearchInput in);
+	LastNameCondition(string search_pattern);
 private:
 	std::string last_name;
 };
 
 class PhoneNumCondition : public SearchCondition {
 public:
-	PhoneNumCondition(SearchInput in);
+	PhoneNumCondition(string search_pattern);
 private:
 	std::string phone_num;
 };
 
 class PhoneNumMidCondition : public SearchCondition {
 public:
-	PhoneNumMidCondition(SearchInput in);
+	PhoneNumMidCondition(string search_pattern);
 private:
 	unsigned phone_num_mid;
 };
 
 class PhoneNumLastCondition : public SearchCondition {
 public:
-	PhoneNumLastCondition(SearchInput in);
+	PhoneNumLastCondition(string search_pattern);
 private:
 	unsigned phone_num_last;
 };
 
 class BirthCondition : public SearchCondition {
 public:
-	BirthCondition(SearchInput in);
+	BirthCondition(string search_pattern);
 private:
 	unsigned birth;
 };
 
 class BirthYearCondition : public SearchCondition {
 public:
-	BirthYearCondition(SearchInput in);
+	BirthYearCondition(string search_pattern);
 private:
 	unsigned year;
 };
 
 class BirthMonthCondition : public SearchCondition {
 public:
-	BirthMonthCondition(SearchInput in);
+	BirthMonthCondition(string search_pattern);
 private:
 	unsigned month;
 };
 
 class BirthDayCondition : public SearchCondition {
 public:
-	BirthDayCondition(SearchInput in);
+	BirthDayCondition(string search_pattern);
 private:
 	unsigned day;
 };
 
 class ClCondition : public SearchCondition {
 public:
-	ClCondition(SearchInput in);
+	ClCondition(string search_pattern);
 private:
 	CL cl;
 };
 
 class CertiCondition : public SearchCondition {
 public:
-	CertiCondition(SearchInput in);
+	CertiCondition(string search_pattern);
 private:
 	CERTI certi;
 };
@@ -132,7 +128,7 @@ private:
 class Search {
 public:
 	void SetEmployeeList(Employees* employees_ptr);
-	employeeList DoSearch(SearchInput in);
+	employeeList DoSearch(SearchType  search_type, string search_pattern);
 
 private:
 	Employees* employees_;

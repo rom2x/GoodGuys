@@ -1,72 +1,72 @@
 ﻿
 #include "Search.h"
 
-EmployNumCondition::EmployNumCondition(SearchInput in) {
-	this->employee_number = stoi(in.search_pattern);
+EmployNumCondition::EmployNumCondition(string search_pattern) {
+	this->employee_number = stoi(search_pattern);
 
 	Match = [this](Employee& in) -> bool {
 		return in.employee_number % 100000000 == this->employee_number;
 	};
 }
 
-NameCondition::NameCondition(SearchInput in) {
-	this->name = in.search_pattern;
+NameCondition::NameCondition(string search_pattern) {
+	this->name = search_pattern;
 
 	Match = [this](Employee& in) -> bool {
 		return in.first_name + " " + in.last_name == this->name;
 	};
 }
 
-FirstNameCondition::FirstNameCondition(SearchInput in) {
-	this->first_name = in.search_pattern;
+FirstNameCondition::FirstNameCondition(string search_pattern) {
+	this->first_name = search_pattern;
 
 	Match = [this](Employee& in) -> bool {
 		return in.first_name == this->first_name;
 	};
 }
 
-LastNameCondition::LastNameCondition(SearchInput in) {
-	this->last_name = in.search_pattern;
+LastNameCondition::LastNameCondition(string search_pattern) {
+	this->last_name = search_pattern;
 
 	Match = [this](Employee& in) -> bool {
 		return in.last_name == this->last_name;
 	};
 }
 
-PhoneNumCondition::PhoneNumCondition(SearchInput in) {
-	this->phone_num = in.search_pattern;
+PhoneNumCondition::PhoneNumCondition(string search_pattern) {
+	this->phone_num = search_pattern;
 
 	Match = [this](Employee& in) -> bool {
 		return "010-" + std::to_string(in.phone_num_mid) + "-" + std::to_string(in.phone_num_last) == this->phone_num;
 	};
 }
 
-PhoneNumMidCondition::PhoneNumMidCondition(SearchInput in) {
-	this->phone_num_mid = stoi(in.search_pattern);
+PhoneNumMidCondition::PhoneNumMidCondition(string search_pattern) {
+	this->phone_num_mid = stoi(search_pattern);
 
 	Match = [this](Employee& in) -> bool {
 		return in.phone_num_mid == this->phone_num_mid;
 	};
 }
 
-PhoneNumLastCondition::PhoneNumLastCondition(SearchInput in) {
-	this->phone_num_last = stoi(in.search_pattern);
+PhoneNumLastCondition::PhoneNumLastCondition(string search_pattern) {
+	this->phone_num_last = stoi(search_pattern);
 
 	Match = [this](Employee& in) -> bool {
 		return in.phone_num_last == this->phone_num_last;
 	};
 }
 
-BirthCondition::BirthCondition(SearchInput in) {
-	this->birth = stoi(in.search_pattern);
+BirthCondition::BirthCondition(string search_pattern) {
+	this->birth = stoi(search_pattern);
 
 	Match = [this](Employee& in) -> bool {
 		return in.birth == this->birth;
 	};
 }
 
-BirthYearCondition::BirthYearCondition(SearchInput in) {
-	this->year = stoi(in.search_pattern);
+BirthYearCondition::BirthYearCondition(string search_pattern) {
+	this->year = stoi(search_pattern);
 
 	Match = [this](Employee& in) -> bool {
 		unsigned year = in.birth / 10000;
@@ -74,8 +74,8 @@ BirthYearCondition::BirthYearCondition(SearchInput in) {
 	};
 }
 
-BirthMonthCondition::BirthMonthCondition(SearchInput in) {
-	this->month = stoi(in.search_pattern);
+BirthMonthCondition::BirthMonthCondition(string search_pattern) {
+	this->month = stoi(search_pattern);
 	if (this->month < 0 || this->month > 12) {
 		throw std::out_of_range("Search month range error!");
 	}
@@ -89,8 +89,8 @@ BirthMonthCondition::BirthMonthCondition(SearchInput in) {
 	};
 }
 
-BirthDayCondition::BirthDayCondition(SearchInput in) {
-	this->day = stoi(in.search_pattern);
+BirthDayCondition::BirthDayCondition(string search_pattern) {
+	this->day = stoi(search_pattern);
 	if (this->day < 0 || this->day > 31) {
 		throw std::out_of_range("Search day range error!");
 	}
@@ -104,16 +104,16 @@ BirthDayCondition::BirthDayCondition(SearchInput in) {
 	};
 }
 
-ClCondition::ClCondition(SearchInput in) {
-	this->cl = StrToCL(in.search_pattern);
+ClCondition::ClCondition(string search_pattern) {
+	this->cl = StrToCL(search_pattern);
 
 	Match = [this](Employee& in) -> bool {
 		return in.cl == this->cl;
 	};
 }
 
-CertiCondition::CertiCondition(SearchInput in) {
-	this->certi = StrToCerti(in.search_pattern);
+CertiCondition::CertiCondition(string search_pattern) {
+	this->certi = StrToCerti(search_pattern);
 
 	Match = [this](Employee& in) -> bool {
 		return in.certi == this->certi;
@@ -124,23 +124,23 @@ void Search::SetEmployeeList(Employees* employees_ptr) {
 	this->employees_ = employees_ptr;
 }
 
-employeeList Search::DoSearch(SearchInput in) {
+employeeList Search::DoSearch(SearchType  search_type, string search_pattern) {
 	employeeList searchOutput;
 
-	switch (in.search_type)	{
-	case SearchType::EMPLOYEE_NUM: 	 this->search_condition = new EmployNumCondition(in);	  break;
-	case SearchType::NAME:       	 this->search_condition = new NameCondition(in);	      break;
-	case SearchType::FIRST_NAME:	 this->search_condition = new FirstNameCondition(in);	  break;
-	case SearchType::LAST_NAME:		 this->search_condition = new LastNameCondition(in);	  break;
-	case SearchType::PHONE_NUM:  	 this->search_condition = new PhoneNumCondition(in);	  break;
-	case SearchType::PHONE_NUM_MID:	 this->search_condition = new PhoneNumMidCondition(in);	  break;
-	case SearchType::PHONE_NUM_LAST: this->search_condition = new PhoneNumLastCondition(in);  break;
-	case SearchType::BIRTHDAY:	     this->search_condition = new BirthCondition(in);	      break;
-	case SearchType::BIRTHDAY_YEAR:	 this->search_condition = new BirthYearCondition(in);	  break;
-	case SearchType::BIRTHDAY_MONTH: this->search_condition = new BirthMonthCondition(in);	  break;
-	case SearchType::BIRTHDAY_DAY:	 this->search_condition = new BirthDayCondition(in);	  break;
-	case SearchType::CL:	         this->search_condition = new ClCondition(in);	          break;
-	case SearchType::CERTI:	         this->search_condition = new CertiCondition(in);	      break;
+	switch (search_type)	{
+	case SearchType::EMPLOYEE_NUM: 	 this->search_condition = new EmployNumCondition(search_pattern);	  break;
+	case SearchType::NAME:       	 this->search_condition = new NameCondition(search_pattern);	      break;
+	case SearchType::FIRST_NAME:	 this->search_condition = new FirstNameCondition(search_pattern);	  break;
+	case SearchType::LAST_NAME:		 this->search_condition = new LastNameCondition(search_pattern);	  break;
+	case SearchType::PHONE_NUM:  	 this->search_condition = new PhoneNumCondition(search_pattern);	  break;
+	case SearchType::PHONE_NUM_MID:	 this->search_condition = new PhoneNumMidCondition(search_pattern);	  break;
+	case SearchType::PHONE_NUM_LAST: this->search_condition = new PhoneNumLastCondition(search_pattern);  break;
+	case SearchType::BIRTHDAY:	     this->search_condition = new BirthCondition(search_pattern);	      break;
+	case SearchType::BIRTHDAY_YEAR:	 this->search_condition = new BirthYearCondition(search_pattern);	  break;
+	case SearchType::BIRTHDAY_MONTH: this->search_condition = new BirthMonthCondition(search_pattern);	  break;
+	case SearchType::BIRTHDAY_DAY:	 this->search_condition = new BirthDayCondition(search_pattern);	  break;
+	case SearchType::CL:	         this->search_condition = new ClCondition(search_pattern);	          break;
+	case SearchType::CERTI:	         this->search_condition = new CertiCondition(search_pattern);	      break;
 	default: throw std::out_of_range("SearchType range error!");
 	}
 
