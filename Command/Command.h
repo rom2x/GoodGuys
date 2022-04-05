@@ -12,30 +12,61 @@ using namespace std;
 class Command
 {
 public:
-	Command(string name, vector<string> command) : name_(name), command_(command) {
+	enum class CommandOffset
+	{
+		OFFSET_0,
+		COMMAND = OFFSET_0,    // ADD, DEL, SCH, MOD
+		OFFSET_1,
+		PRINT = OFFSET_1,      // -p
+		OFFSET_2,
+		SUB_OPTION = OFFSET_2, // (-f, -l), (-m, -l), (-y, -m, -d)
+		OFFSET_3, // NOT USED
+		OFFSET_4,
+		ADD__EMPLOYEE_NUM = OFFSET_4,
+		SEARCH__SRC_KEY = OFFSET_4,
+		OFFSET_5,
+		ADD__NAME = OFFSET_5,
+		SEARCH__SRC_VALUE = OFFSET_5,
+		OFFSET_6,
+		ADD__CL = OFFSET_6,
+		MODIFY__DST_KEY = OFFSET_6,
+		OFFSET_7,
+		ADD__PHONE_NUM = OFFSET_7,
+		MODIFY__DST_VALUE = OFFSET_7,
+		OFFSET_8,
+		ADD__BIRTHDAY = OFFSET_8,
+		OFFSET_9,
+		ADD__CERTI = OFFSET_9,
+	};
+
+	Command(string name, vector<string> params) : name_(name), params_(params) {
 	}
 
 	virtual string Process(Employees* employees) = 0;
 	virtual void CommandValidation() = 0;
 
-	vector<string>& get_command(void) {
-		return this->command_;
+	vector<string>& params(void) {
+		return this->params_;
+	}
+	string& param(CommandOffset command_offset)
+	{
+		return this->params_[static_cast<int>(command_offset)];
 	}
 
-	string& get_name(void) {
+	string& name(void) {
 		return this->name_;
 	}
 
 	void print_error_msg(void) {
-		string errorMessage = "## ERROR ::" + get_command()[0] + ". size: ";
+		string errorMessage = "## ERROR ::" + param(CommandOffset::COMMAND) + ". size: ";
 		cout << errorMessage;
-		cout << this->get_command().size() << endl;
+		cout << this->params().size() << endl;
 		throw invalid_argument(errorMessage);
 	}
 
-protected:
+private:
 	string name_;
-	vector<string> command_;
+	vector<string> params_;
 };
 
 class SearchableCommand : public Command
@@ -56,8 +87,7 @@ private:
 class AddCommand : public Command
 {
 public:
-	AddCommand(vector<string> command) : Command("ADD", command)
-	{
+	AddCommand(vector<string> command) : Command("ADD", command) {
 		this->CommandValidation();
 	}
 
@@ -71,8 +101,7 @@ private:
 class DelCommand : public SearchableCommand
 {
 public:
-	DelCommand(vector<string> command) : SearchableCommand("DEL", command)
-	{
+	DelCommand(vector<string> command) : SearchableCommand("DEL", command) {
 		this->CommandValidation();
 	}
 
@@ -86,8 +115,7 @@ private:
 class SearchCommand : public SearchableCommand
 {
 public:
-	SearchCommand(vector<string> command) : SearchableCommand("SCH", command)
-	{
+	SearchCommand(vector<string> command) : SearchableCommand("SCH", command) {
 		this->CommandValidation();
 	}
 
@@ -101,8 +129,7 @@ private:
 class ModifyCommand : public SearchableCommand
 {
 public:
-	ModifyCommand(vector<string> command) : SearchableCommand("MOD", command)
-	{
+	ModifyCommand(vector<string> command) : SearchableCommand("MOD", command) {
 		this->CommandValidation();
 	}
 

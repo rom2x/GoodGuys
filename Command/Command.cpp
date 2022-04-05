@@ -53,71 +53,56 @@ static string Output(string name, bool opt, employeeList& list) {
 }
 
 string SearchableCommand::GetSearchPattern(void) {
-	string search_pattern = get_command()[5];
+	string search_pattern = param(CommandOffset::SEARCH__SRC_VALUE);
 	search_pattern.erase(search_pattern.find_last_not_of(" \t\n\r\f\v") + 1);
-	return search_pattern ;
+	return search_pattern;
 }
 
 SearchType SearchableCommand::GetSearchType(void) {
-	if ("employeeNum" == get_command()[4]) {
-		return SearchType::EMPLOYEE_NUM;
+	if (param(CommandOffset::SEARCH__SRC_KEY) == "employeeNum") return SearchType::EMPLOYEE_NUM;
+
+	if (param(CommandOffset::SEARCH__SRC_KEY) == "name") {
+		if (param(CommandOffset::SUB_OPTION) == "-f") return SearchType::FIRST_NAME;
+		if (param(CommandOffset::SUB_OPTION) == "-l") return SearchType::LAST_NAME;
+		return SearchType::NAME;
 	}
-	else if ("name" == get_command()[4]) {
-		if ("-f" == get_command()[2]) {
-			return SearchType::FIRST_NAME;
-		}
-		else if ("-l" == get_command()[2]) {
-			return SearchType::LAST_NAME;
-		}
-		else {
-			return SearchType::NAME;
-		}
+
+	if (param(CommandOffset::SEARCH__SRC_KEY) == "cl") return SearchType::CL;
+
+	if (param(CommandOffset::SEARCH__SRC_KEY) == "phoneNum") {
+		if (param(CommandOffset::SUB_OPTION) == "-m") return SearchType::PHONE_NUM_MID;
+		if (param(CommandOffset::SUB_OPTION) == "-l") return SearchType::PHONE_NUM_LAST;
+		return SearchType::PHONE_NUM;
 	}
-	else if ("cl" == get_command()[4]) {
-		return SearchType::CL;
+
+	if (param(CommandOffset::SEARCH__SRC_KEY) == "birthday") {
+		if (param(CommandOffset::SUB_OPTION) == "-y") return SearchType::BIRTHDAY_YEAR;
+		if (param(CommandOffset::SUB_OPTION) == "-m") return SearchType::BIRTHDAY_MONTH;
+		if (param(CommandOffset::SUB_OPTION) == "-d") return SearchType::BIRTHDAY_DAY;
+		return SearchType::BIRTHDAY;
 	}
-	else if ("phoneNum" == get_command()[4]) {
-		if ("-m" == get_command()[2]) {
-			return SearchType::PHONE_NUM_MID;
-		}
-		else if ("-l" == get_command()[2]) {
-			return SearchType::PHONE_NUM_LAST;
-		}
-		else {
-			return SearchType::PHONE_NUM;
-		}
-	}
-	else if ("birthday" == get_command()[4]) {
-		if ("-y" == get_command()[2]) {
-			return SearchType::BIRTHDAY_YEAR;
-		}
-		else if ("-m" == get_command()[2]) {
-			return SearchType::BIRTHDAY_MONTH;
-		}
-		else if ("-d" == get_command()[2]) {
-			return SearchType::BIRTHDAY_DAY;
-		}
-		else {
-			return SearchType::BIRTHDAY;
-		}
-	}
-	else if ("certi" == get_command()[4])
-	{
-		return SearchType::CERTI;
-	}
+
+	if (param(CommandOffset::SEARCH__SRC_KEY) == "certi") return SearchType::CERTI;
 
 	throw invalid_argument("Invalid search type\n");
 }
 
 string AddCommand::Process(Employees* employees) {
-	Employee employee = { get_command()[4], get_command()[5], get_command()[6], get_command()[7], get_command()[8], get_command()[9] };
+	Employee employee = {
+		param(CommandOffset::ADD__EMPLOYEE_NUM),
+		param(CommandOffset::ADD__NAME),
+		param(CommandOffset::ADD__CL),
+		param(CommandOffset::ADD__PHONE_NUM),
+		param(CommandOffset::ADD__BIRTHDAY),
+		param(CommandOffset::ADD__CERTI)
+	};
 	employees->Add(employee);
 
 	return "";
 }
 
 void AddCommand::CommandValidation() {
-	if (ADD_COMMAND_SIZE != get_command().size()) {
+	if (ADD_COMMAND_SIZE != params().size()) {
 		print_error_msg();
 	}
 }
@@ -129,11 +114,11 @@ string DelCommand::Process(Employees* employees) {
 		employees->Del(delete_employee);
 	}
 
-	return Output(get_name(), get_command()[1] == "-p", delete_employee_list);
+	return Output(name(), param(CommandOffset::PRINT) == "-p", delete_employee_list);
 }
 
 void DelCommand::CommandValidation() {
-	if (DEL_COMMAND_SIZE != get_command().size()) {
+	if (DEL_COMMAND_SIZE != params().size()) {
 		print_error_msg();
 	}
 }
@@ -141,11 +126,11 @@ void DelCommand::CommandValidation() {
 string SearchCommand::Process(Employees* employees) {
 	employeeList search_employee_list = SearchEmployees(employees);
 
-	return Output(get_name(), get_command()[1] == "-p", search_employee_list);
+	return Output(name(), param(CommandOffset::PRINT) == "-p", search_employee_list);
 }
 
 void SearchCommand::CommandValidation() {
-	if (SEARCH_COMMAND_SIZE != get_command().size()) {
+	if (SEARCH_COMMAND_SIZE != params().size()) {
 		print_error_msg();
 	}
 }
@@ -158,14 +143,14 @@ string ModifyCommand::Process(Employees* employees) {
 	employeeList modify_employee_list = SearchEmployees(employees);
 
 	for (auto employee : modify_employee_list) {
-		employees->Modify(employee, GetModFunction(get_command()[6], get_command()[7]));
+		employees->Modify(employee, GetModFunction(param(CommandOffset::MODIFY__DST_KEY), param(CommandOffset::MODIFY__DST_VALUE)));
 	}
 
-	return Output(get_name(), get_command()[1] == "-p", modify_employee_list);
+	return Output(name(), param(CommandOffset::PRINT) == "-p", modify_employee_list);
 }
 
 void ModifyCommand::CommandValidation() {
-	if (MODIFY_COMMAND_SIZE != get_command().size()) {
+	if (MODIFY_COMMAND_SIZE != params().size()) {
 		print_error_msg();
 	}
 }
