@@ -109,9 +109,9 @@ SearchType SearchableCommand::GetSearchType(void) {
 	throw invalid_argument("Invalid search type\n");
 }
 
-string AddCommand::Process(Employees* database) {
+string AddCommand::Process(Employees* employees) {
 	Employee employee = { get_command()[4], get_command()[5], get_command()[6], get_command()[7], get_command()[8], get_command()[9] };
-	database->Add(employee);
+	employees->Add(employee);
 
 	return "";
 }
@@ -122,11 +122,11 @@ void AddCommand::CommandValidation() {
 	}
 }
 
-string DelCommand::Process(Employees* database) {
-	employeeList delete_employee_list = SearchEmployees(database);
+string DelCommand::Process(Employees* employees) {
+	employeeList delete_employee_list = SearchEmployees(employees);
 
 	for (auto delete_employee : delete_employee_list) {
-		database->Del(delete_employee);
+		employees->Del(delete_employee);
 	}
 
 	return Output(get_name(), get_command()[1] == "-p", delete_employee_list);
@@ -138,8 +138,8 @@ void DelCommand::CommandValidation() {
 	}
 }
 
-string SearchCommand::Process(Employees* database) {
-	employeeList search_employee_list = SearchEmployees(database);
+string SearchCommand::Process(Employees* employees) {
+	employeeList search_employee_list = SearchEmployees(employees);
 
 	return Output(get_name(), get_command()[1] == "-p", search_employee_list);
 }
@@ -154,11 +154,11 @@ using mod_func = function<void(Employee&)>;
 
 static mod_func GetModFunction(string target, string modify_val);
 
-string ModifyCommand::Process(Employees* database) {
-	employeeList modify_employee_list = SearchEmployees(database);
+string ModifyCommand::Process(Employees* employees) {
+	employeeList modify_employee_list = SearchEmployees(employees);
 
 	for (auto employee : modify_employee_list) {
-		database->Modify(employee, GetModFunction(get_command()[6], get_command()[7]));
+		employees->Modify(employee, GetModFunction(get_command()[6], get_command()[7]));
 	}
 
 	return Output(get_name(), get_command()[1] == "-p", modify_employee_list);
