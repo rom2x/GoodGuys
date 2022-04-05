@@ -1,6 +1,16 @@
 ﻿
 #include "Search.h"
 
+vector<string> split(string str, char Delimiter) {
+	istringstream iss(str);
+	string buffer;
+	vector<string> result;
+	while (getline(iss, buffer, Delimiter)) {
+		result.push_back(buffer);
+	}
+	return result;
+}
+
 EmployNumCondition::EmployNumCondition(string search_pattern) {
 	this->employee_number = stoi(search_pattern);
 
@@ -10,10 +20,15 @@ EmployNumCondition::EmployNumCondition(string search_pattern) {
 }
 
 NameCondition::NameCondition(string search_pattern) {
-	this->name = search_pattern;
+	vector<string> split_search_pattern = split(search_pattern, ' ');
+	if (split_search_pattern.size() != 2) {
+		throw std::invalid_argument("Wrong Name!");
+	}
+	this->first_name = split_search_pattern[0];
+	this->last_name = split_search_pattern[1];
 
 	Match = [this](Employee& in) -> bool {
-		return in.first_name + " " + in.last_name == this->name;
+		return in.first_name == this->first_name && in.last_name == this->last_name;
 	};
 }
 
@@ -34,10 +49,15 @@ LastNameCondition::LastNameCondition(string search_pattern) {
 }
 
 PhoneNumCondition::PhoneNumCondition(string search_pattern) {
-	this->phone_num = search_pattern;
+	vector<string> split_serch_pattern = split(search_pattern, '-');
+	if (split_serch_pattern.size() != 3) {
+		throw std::invalid_argument("Wrong Phone Number!");
+	}
+	this->phone_num_mid = stoi(split_serch_pattern[1]);
+	this->phone_num_last = stoi(split_serch_pattern[2]);
 
 	Match = [this](Employee& in) -> bool {
-		return "010-" + std::to_string(in.phone_num_mid) + "-" + std::to_string(in.phone_num_last) == this->phone_num;
+		return in.phone_num_mid == this->phone_num_mid && in.phone_num_last == this->phone_num_last;
 	};
 }
 
