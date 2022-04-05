@@ -21,18 +21,12 @@
     <ClCompile Include="file_input_manager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Sorter.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="input_parser_manager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="file_input_manager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Sorter.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="input_parser_manager.h">
